@@ -7,9 +7,13 @@ public class Car extends Sprite {
   // px/s
   private static final double MAX_FORWARD_SPEED = 300;
   private static final double MAX_BACKWARD_SPEED = -100;
+  private static final double LOW_SPEED_FILTER = 0.6;
 
   // rad/s
   private static final double TURN_RATE = 4;
+
+  // ratio to current speed
+  private static final double COAST_DECELERATION_RATE = 0.01;
 
   // px/s
   public double getSpeed() {
@@ -93,8 +97,17 @@ public class Car extends Sprite {
     }
   }
 
+  private void coastDecelerate(final double timeDiff) {
+    speed *= (1 - COAST_DECELERATION_RATE);
+    // low-filter
+    if (speed > -LOW_SPEED_FILTER && speed < LOW_SPEED_FILTER) {
+      speed = 0;
+    }
+  }
+
   public void move(final double timeDiff) {
     updateDynamicsFromInputs(timeDiff);
+    coastDecelerate(timeDiff);
     final double dx = speed * Math.sin(direction) * timeDiff / 1000;
     final double dy = -speed * Math.cos(direction) * timeDiff / 1000;
     x += dx;
