@@ -119,9 +119,7 @@ public class Car extends Sprite {
   public void move(final double timeDiff) {
     updateDynamicsFromInputs(timeDiff);
     coastDecelerate(timeDiff);
-    final double dx = xSpeed * timeDiff / 1000;
-    final double dy = ySpeed * timeDiff / 1000;
-    x += dx;
-    y += dy;
+    x += xSpeed * timeDiff / 1000;
+    y += ySpeed * timeDiff / 1000;
   }
 }
