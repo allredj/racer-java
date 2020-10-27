@@ -5,11 +5,11 @@ import java.awt.event.KeyEvent;
 public class Car extends Sprite {
 
   // px/s
-  private static final double MAX_FORWARD_SPEED = 200;
+  private static final double MAX_FORWARD_SPEED = 300;
   private static final double MAX_BACKWARD_SPEED = -100;
 
   // rad/s
-  private static final double TURN_RATE = 3;
+  private static final double TURN_RATE = 4;
 
   // px/s
   public double getSpeed() {
