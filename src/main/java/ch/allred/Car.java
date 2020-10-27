@@ -29,6 +29,8 @@ public class Car extends Sprite {
   private boolean braking;
   private boolean turningRight;
   private boolean turningLeft;
+  private double xSpeed;
+  private double ySpeed;
 
   public Car(int x, int y) {
     super(x, y);
@@ -39,6 +41,8 @@ public class Car extends Sprite {
     loadImage("src/main/resources/car_red.png");
     getImageDimensions();
     speed = 0;
+    xSpeed = 0;
+    ySpeed = 0;
     heading = Math.PI / 2;
   }
 
@@ -76,10 +80,14 @@ public class Car extends Sprite {
 
   private void updateDynamicsFromInputs(final double timeDiff) {
     if (accelerating) {
-      speed += 2;
+      // FIXME: Decouple acceleration from frame rate
+      // TODO: Extract magic number
+      xSpeed += 2 * Math.sin(heading);
+      ySpeed -= 2 * Math.cos(heading);
     }
     if (braking) {
-      speed -= 2;
+      xSpeed -= 2 * Math.sin(heading);
+      ySpeed += 2 * Math.cos(heading);
     }
     if (turningLeft) {
       heading = heading - TURN_RATE / 1000 * timeDiff;
@@ -96,18 +104,23 @@ public class Car extends Sprite {
   }
 
   private void coastDecelerate(final double timeDiff) {
-    speed *= (1 - COAST_DECELERATION_RATE * timeDiff / 1000);
+    xSpeed *= (1 - COAST_DECELERATION_RATE * timeDiff / 1000);
     // low-filter
-    if (speed > -LOW_SPEED_FILTER && speed < LOW_SPEED_FILTER) {
-      speed = 0;
+    if (xSpeed > -LOW_SPEED_FILTER && xSpeed < LOW_SPEED_FILTER) {
+      xSpeed = 0;
+    }
+    ySpeed *= (1 - COAST_DECELERATION_RATE * timeDiff / 1000);
+    // low-filter
+    if (ySpeed > -LOW_SPEED_FILTER && ySpeed < LOW_SPEED_FILTER) {
+      ySpeed = 0;
     }
   }
 
   public void move(final double timeDiff) {
     updateDynamicsFromInputs(timeDiff);
     coastDecelerate(timeDiff);
-    final double dx = speed * Math.sin(heading) * timeDiff / 1000;
-    final double dy = -speed * Math.cos(heading) * timeDiff / 1000;
+    final double dx = xSpeed * timeDiff / 1000;
+    final double dy = ySpeed * timeDiff / 1000;
     x += dx;
     y += dy;
   }
