@@ -77,17 +77,15 @@ public class Car extends Sprite {
       speed = Math.max(speed - 2, MAX_BACKWARD_SPEED);
     }
     if (turningLeft) {
+      direction = direction - 0.04;
       if (direction <= 0) {
-        direction = 2 * Math.PI - 0.04;
-      } else {
-        direction = direction - 0.04;
+        direction += 2 * Math.PI;
       }
     }
     if (turningRight) {
+      direction = direction + 0.04;
       if (direction >= 2 * Math.PI) {
-        direction = 0.04;
-      } else {
-        direction = direction + 0.04;
+        direction -= 2 * Math.PI;
       }
     }
 
