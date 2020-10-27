@@ -128,6 +128,8 @@ public class Car extends Sprite {
     if (ySpeed > -LOW_SPEED_FILTER && ySpeed < LOW_SPEED_FILTER) {
       ySpeed = 0;
     }
+
+    indicatedSpeed = Math.sqrt(xSpeed * xSpeed + ySpeed * ySpeed);
   }
 
   public void move(final double timeDiff) {
