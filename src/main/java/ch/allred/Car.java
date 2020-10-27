@@ -14,8 +14,8 @@ public class Car extends Sprite {
   private static final double COAST_DECELERATION_RATE = 1;
 
   // px/s
-  public double getSpeed() {
-    return speed;
+  public double getIndicatedSpeed() {
+    return indicatedSpeed;
   }
 
   // radians
@@ -23,7 +23,7 @@ public class Car extends Sprite {
     return heading;
   }
 
-  private double speed;
+  private double indicatedSpeed;
   private double heading;
   private boolean accelerating;
   private boolean braking;
@@ -40,7 +40,7 @@ public class Car extends Sprite {
   private void initCar() {
     loadImage("src/main/resources/car_red.png");
     getImageDimensions();
-    speed = 0;
+    indicatedSpeed = 0;
     xSpeed = 0;
     ySpeed = 0;
     heading = Math.PI / 2;
