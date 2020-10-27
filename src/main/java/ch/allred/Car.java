@@ -72,7 +72,7 @@ public class Car extends Sprite {
     }
   }
 
-  public void move(final double timeDiff) {
+  private void updateDynamicsFromInputs(final double timeDiff) {
     if (accelerating) {
       speed = Math.min(speed + 2, MAX_FORWARD_SPEED);
     }
@@ -91,7 +91,10 @@ public class Car extends Sprite {
         direction -= 2 * Math.PI;
       }
     }
+  }
 
+  public void move(final double timeDiff) {
+    updateDynamicsFromInputs(timeDiff);
     final double dx = speed * Math.sin(direction) * timeDiff / 1000;
     final double dy = -speed * Math.cos(direction) * timeDiff / 1000;
     x += dx;
