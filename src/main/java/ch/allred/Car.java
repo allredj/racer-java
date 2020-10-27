@@ -21,12 +21,12 @@ public class Car extends Sprite {
   }
 
   // radians
-  public double getDirection() {
-    return direction;
+  public double getHeading() {
+    return heading;
   }
 
   private double speed;
-  private double direction;
+  private double heading;
   private boolean accelerating;
   private boolean braking;
   private boolean turningRight;
@@ -41,7 +41,7 @@ public class Car extends Sprite {
     loadImage("src/main/resources/car_red.png");
     getImageDimensions();
     speed = 0;
-    direction = Math.PI / 2;
+    heading = Math.PI / 2;
   }
 
   public void keyPressed(KeyEvent e) {
@@ -84,15 +84,15 @@ public class Car extends Sprite {
       speed = Math.max(speed - 2, MAX_BACKWARD_SPEED);
     }
     if (turningLeft) {
-      direction = direction - TURN_RATE / 1000 * timeDiff;
-      if (direction <= 0) {
-        direction += 2 * Math.PI;
+      heading = heading - TURN_RATE / 1000 * timeDiff;
+      if (heading <= 0) {
+        heading += 2 * Math.PI;
       }
     }
     if (turningRight) {
-      direction = direction + TURN_RATE / 1000 * timeDiff;
-      if (direction >= 2 * Math.PI) {
-        direction -= 2 * Math.PI;
+      heading = heading + TURN_RATE / 1000 * timeDiff;
+      if (heading >= 2 * Math.PI) {
+        heading -= 2 * Math.PI;
       }
     }
   }
@@ -108,8 +108,8 @@ public class Car extends Sprite {
   public void move(final double timeDiff) {
     updateDynamicsFromInputs(timeDiff);
     coastDecelerate(timeDiff);
-    final double dx = speed * Math.sin(direction) * timeDiff / 1000;
-    final double dy = -speed * Math.cos(direction) * timeDiff / 1000;
+    final double dx = speed * Math.sin(heading) * timeDiff / 1000;
+    final double dy = -speed * Math.cos(heading) * timeDiff / 1000;
     x += dx;
     y += dy;
   }

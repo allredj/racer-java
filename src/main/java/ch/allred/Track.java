@@ -42,14 +42,14 @@ public class Track extends JPanel implements Runnable {
     AffineTransform affine = new AffineTransform();
     affine.translate(car.getX(), car.getY());
     // center image
-    affine.rotate(car.getDirection(), (double) car.width / 2, (double) car.height / 2);
+    affine.rotate(car.getHeading(), (double) car.width / 2, (double) car.height / 2);
     g2d.drawImage(car.getImage(), affine, this);
   }
 
   private void drawStats(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
     g2d.drawString(
-        String.format("Speed:%f, Direction:%f", car.getSpeed(), car.getDirection()),
+        String.format("Speed:%f, Heading:%f", car.getSpeed(), car.getHeading()),
         10, 20);
   }
 
