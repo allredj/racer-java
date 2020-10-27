@@ -11,7 +11,7 @@ public class Car extends Sprite {
   private static final double TURN_RATE = 4;
 
   // ratio to current speed
-  private static final double COAST_DECELERATION_RATE = 0.01;
+  private static final double COAST_DECELERATION_RATE = 1;
 
   // px/s
   public double getSpeed() {
@@ -96,7 +96,7 @@ public class Car extends Sprite {
   }
 
   private void coastDecelerate(final double timeDiff) {
-    speed *= (1 - COAST_DECELERATION_RATE);
+    speed *= (1 - COAST_DECELERATION_RATE * timeDiff / 1000);
     // low-filter
     if (speed > -LOW_SPEED_FILTER && speed < LOW_SPEED_FILTER) {
       speed = 0;
