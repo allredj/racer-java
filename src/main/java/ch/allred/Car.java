@@ -5,8 +5,6 @@ import java.awt.event.KeyEvent;
 public class Car extends Sprite {
 
   // px/s
-  private static final double MAX_FORWARD_SPEED = 300;
-  private static final double MAX_BACKWARD_SPEED = -100;
   private static final double LOW_SPEED_FILTER = 0.6;
 
   // rad/s
@@ -78,10 +76,10 @@ public class Car extends Sprite {
 
   private void updateDynamicsFromInputs(final double timeDiff) {
     if (accelerating) {
-      speed = Math.min(speed + 2, MAX_FORWARD_SPEED);
+      speed += 2;
     }
     if (braking) {
-      speed = Math.max(speed - 2, MAX_BACKWARD_SPEED);
+      speed -= 2;
     }
     if (turningLeft) {
       heading = heading - TURN_RATE / 1000 * timeDiff;
