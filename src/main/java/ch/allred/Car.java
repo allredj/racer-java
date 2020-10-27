@@ -10,8 +10,7 @@ public class Car extends Sprite {
   // rad/s
   private static final double TURN_RATE = 4;
 
-  // ratio to current speed
-  private static final double COAST_DECELERATION_RATE = 1;
+  private static final double AIR_DRAG_COEFFICIENT = 1;
 
   // px/s
   public double getIndicatedSpeed() {
@@ -31,6 +30,9 @@ public class Car extends Sprite {
   private boolean turningLeft;
   private double xSpeed;
   private double ySpeed;
+  private double xForce;
+  private double yForce;
+  private double mass;
 
   public Car(int x, int y) {
     super(x, y);
@@ -43,6 +45,9 @@ public class Car extends Sprite {
     indicatedSpeed = 0;
     xSpeed = 0;
     ySpeed = 0;
+    xForce = 0;
+    yForce = 0;
+    mass = 1;
     heading = Math.PI / 2;
   }
 
@@ -103,13 +108,22 @@ public class Car extends Sprite {
     }
   }
 
-  private void coastDecelerate(final double timeDiff) {
-    xSpeed *= (1 - COAST_DECELERATION_RATE * timeDiff / 1000);
+  private void updateForces(final double timeDiff) {
+    final double xAirResistanceForceNewton = -xSpeed * Math.abs(xSpeed) * timeDiff / 1000;
+    final double yAirResistanceForceNewton = -ySpeed * Math.abs(ySpeed) * timeDiff / 1000;
+    xForce = xAirResistanceForceNewton;
+    yForce = yAirResistanceForceNewton;
+  }
+
+  private void updateSpeed(final double timeDiff) {
+    final double dXSpeed = xForce / mass * AIR_DRAG_COEFFICIENT * timeDiff / 1000;
+    xSpeed += dXSpeed;
     // low-filter
     if (xSpeed > -LOW_SPEED_FILTER && xSpeed < LOW_SPEED_FILTER) {
       xSpeed = 0;
     }
-    ySpeed *= (1 - COAST_DECELERATION_RATE * timeDiff / 1000);
+    final double dYSpeed = yForce / mass * AIR_DRAG_COEFFICIENT * timeDiff / 1000;
+    ySpeed += dYSpeed;
     // low-filter
     if (ySpeed > -LOW_SPEED_FILTER && ySpeed < LOW_SPEED_FILTER) {
       ySpeed = 0;
@@ -118,7 +132,8 @@ public class Car extends Sprite {
 
   public void move(final double timeDiff) {
     updateDynamicsFromInputs(timeDiff);
-    coastDecelerate(timeDiff);
+    updateForces(timeDiff);
+    updateSpeed(timeDiff);
     x += xSpeed * timeDiff / 1000;
     y += ySpeed * timeDiff / 1000;
   }
