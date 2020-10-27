@@ -8,6 +8,9 @@ public class Car extends Sprite {
   private static final double MAX_FORWARD_SPEED = 200;
   private static final double MAX_BACKWARD_SPEED = -100;
 
+  // rad/s
+  private static final double TURN_RATE = 3;
+
   // px/s
   public double getSpeed() {
     return speed;
@@ -77,13 +80,13 @@ public class Car extends Sprite {
       speed = Math.max(speed - 2, MAX_BACKWARD_SPEED);
     }
     if (turningLeft) {
-      direction = direction - 0.04;
+      direction = direction - TURN_RATE / 1000 * timeDiff;
       if (direction <= 0) {
         direction += 2 * Math.PI;
       }
     }
     if (turningRight) {
-      direction = direction + 0.04;
+      direction = direction + TURN_RATE / 1000 * timeDiff;
       if (direction >= 2 * Math.PI) {
         direction -= 2 * Math.PI;
       }
