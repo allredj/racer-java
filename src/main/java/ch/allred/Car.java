@@ -10,7 +10,7 @@ public class Car extends Sprite {
   // rad/s
   private static final double TURN_RATE = 4;
 
-  private static final double AIR_DRAG_COEFFICIENT = 1;
+  private static final double AIR_DRAG_COEFFICIENT = 2;
 
   // px/s
   public double getIndicatedSpeed() {
@@ -95,13 +95,13 @@ public class Car extends Sprite {
       ySpeed += 2 * Math.cos(heading);
     }
     if (turningLeft) {
-      heading = heading - TURN_RATE / 1000 * timeDiff;
+      heading = heading - TURN_RATE * timeDiff;
       if (heading <= 0) {
         heading += 2 * Math.PI;
       }
     }
     if (turningRight) {
-      heading = heading + TURN_RATE / 1000 * timeDiff;
+      heading = heading + TURN_RATE * timeDiff;
       if (heading >= 2 * Math.PI) {
         heading -= 2 * Math.PI;
       }
@@ -109,20 +109,20 @@ public class Car extends Sprite {
   }
 
   private void updateForces(final double timeDiff) {
-    final double xAirResistanceForceNewton = -xSpeed * Math.abs(xSpeed) * timeDiff / 1000;
-    final double yAirResistanceForceNewton = -ySpeed * Math.abs(ySpeed) * timeDiff / 1000;
+    final double xAirResistanceForceNewton = -xSpeed * Math.abs(xSpeed) * timeDiff;
+    final double yAirResistanceForceNewton = -ySpeed * Math.abs(ySpeed) * timeDiff;
     xForce = xAirResistanceForceNewton;
     yForce = yAirResistanceForceNewton;
   }
 
   protected void updateSpeed(final double timeDiff) {
-    final double dXSpeed = xForce / mass * AIR_DRAG_COEFFICIENT * timeDiff / 1000;
+    final double dXSpeed = xForce / mass * AIR_DRAG_COEFFICIENT * timeDiff;
     xSpeed += dXSpeed;
     // low-filter
     if (xSpeed > -LOW_SPEED_FILTER && xSpeed < LOW_SPEED_FILTER) {
       xSpeed = 0;
     }
-    final double dYSpeed = yForce / mass * AIR_DRAG_COEFFICIENT * timeDiff / 1000;
+    final double dYSpeed = yForce / mass * AIR_DRAG_COEFFICIENT * timeDiff;
     ySpeed += dYSpeed;
     // low-filter
     if (ySpeed > -LOW_SPEED_FILTER && ySpeed < LOW_SPEED_FILTER) {
@@ -136,7 +136,7 @@ public class Car extends Sprite {
     updateDynamicsFromInputs(timeDiff);
     updateForces(timeDiff);
     updateSpeed(timeDiff);
-    x += xSpeed * timeDiff / 1000;
-    y += ySpeed * timeDiff / 1000;
+    x += xSpeed * timeDiff;
+    y += ySpeed * timeDiff;
   }
 }

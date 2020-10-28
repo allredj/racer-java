@@ -87,7 +87,7 @@ public class Track extends JPanel implements Runnable {
       now = System.currentTimeMillis();
       timeDiff = now - lastTime;
       lastTime = now;
-      updateCar(timeDiff);
+      updateCar((float) timeDiff / 1000);
       repaint();
       sleep = DELAY - timeDiff;
       if (sleep < 0) {
