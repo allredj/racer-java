@@ -115,7 +115,7 @@ public class Car extends Sprite {
     yForce = yAirResistanceForceNewton;
   }
 
-  private void updateSpeed(final double timeDiff) {
+  protected void updateSpeed(final double timeDiff) {
     final double dXSpeed = xForce / mass * AIR_DRAG_COEFFICIENT * timeDiff / 1000;
     xSpeed += dXSpeed;
     // low-filter
