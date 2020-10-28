@@ -10,7 +10,7 @@ public class Car extends Sprite {
   // rad/s
   private static final double TURN_RATE = 4;
 
-  private static final double AIR_DRAG_COEFFICIENT = 2;
+  private static final double AIR_DRAG_COEFFICIENT = 0.01;
 
   // px/s
   public double getIndicatedSpeed() {
@@ -108,21 +108,21 @@ public class Car extends Sprite {
     }
   }
 
-  private void updateForces(final double timeDiff) {
-    final double xAirResistanceForceNewton = -xSpeed * Math.abs(xSpeed) * timeDiff;
-    final double yAirResistanceForceNewton = -ySpeed * Math.abs(ySpeed) * timeDiff;
+  private void updateForces() {
+    final double xAirResistanceForceNewton = -xSpeed * Math.abs(xSpeed) * AIR_DRAG_COEFFICIENT;
+    final double yAirResistanceForceNewton = -ySpeed * Math.abs(ySpeed) * AIR_DRAG_COEFFICIENT;
     xForce = xAirResistanceForceNewton;
     yForce = yAirResistanceForceNewton;
   }
 
   protected void updateSpeed(final double timeDiff) {
-    final double dXSpeed = xForce / mass * AIR_DRAG_COEFFICIENT * timeDiff;
+    final double dXSpeed = xForce / mass * timeDiff;
     xSpeed += dXSpeed;
     // low-filter
     if (xSpeed > -LOW_SPEED_FILTER && xSpeed < LOW_SPEED_FILTER) {
       xSpeed = 0;
     }
-    final double dYSpeed = yForce / mass * AIR_DRAG_COEFFICIENT * timeDiff;
+    final double dYSpeed = yForce / mass * timeDiff;
     ySpeed += dYSpeed;
     // low-filter
     if (ySpeed > -LOW_SPEED_FILTER && ySpeed < LOW_SPEED_FILTER) {
@@ -134,7 +134,7 @@ public class Car extends Sprite {
 
   public void move(final double timeDiff) {
     updateDynamicsFromInputs(timeDiff);
-    updateForces(timeDiff);
+    updateForces();
     updateSpeed(timeDiff);
     x += xSpeed * timeDiff;
     y += ySpeed * timeDiff;
