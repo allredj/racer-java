@@ -17,5 +17,5 @@ cd racer-java
 ```
 
 ```
-java -jar  java -jar target/RacerJava-1.0-SNAPSHOT.jar
+java -jar target/RacerJava-1.0-SNAPSHOT.jar
 ```
