@@ -145,7 +145,7 @@ public class Car extends Sprite {
       return 0;
     }
     return TYRE_TRACTION_COEFFICIENT * Math
-        .sin(signedAngleBetweenVectors(xHeading, yHeading, xSpeed, ySpeed)) * speed;
+        .sin(signedAngleBetweenVectors(xHeading, yHeading, xSpeed, ySpeed));
   }
 
   protected void updateForces() {
