@@ -59,6 +59,7 @@ public class CarDiffblueTest {
   public void testLateralTyreForce() {
     // Arrange, Act and Assert
     assertEquals(0.0, Car.lateralTyreForce(10.0, 10.0, 10.0, 10.0));
+    assertEquals(212.13203435596424, Car.lateralTyreForce(0.0, 10.0, 10.0, 10.0));
   }
 
   @Test
@@ -85,20 +86,6 @@ public class CarDiffblueTest {
     assertEquals(0.0, car.getIndicatedSpeed());
     assertEquals(2.0, car.x);
     assertEquals(3.0, car.y);
-  }
-
-  @Test
-  public void testMove2() {
-    // Arrange
-    Car car = new Car(2, 3);
-
-    // Act
-    car.move(Double.NaN);
-
-    // Assert
-    assertEquals(Double.NaN, car.getIndicatedSpeed());
-    assertEquals(Double.NaN, car.x);
-    assertEquals(Double.NaN, car.y);
   }
 }
 
