@@ -12,7 +12,7 @@ public class Car extends Sprite {
 
   private static final double AIR_DRAG_COEFFICIENT = 0.005;
 
-  private static final double TYRE_TRACTION_COEFFICIENT = 2;
+  private static final double TYRE_TRACTION_COEFFICIENT = 300;
 
   // px/s
   public double getIndicatedSpeed() {
