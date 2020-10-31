@@ -45,7 +45,7 @@ public class Car extends Sprite {
   private double ySpeed;
   private double xForce;
   private double yForce;
-  private double mass;
+  private double mass; // must be non-zero
 
   public Car(int x, int y) {
     super(x, y);
