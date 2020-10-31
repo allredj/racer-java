@@ -14,9 +14,8 @@ public class CarTest {
   @Test
   public void testLateralTyreForce() {
     assertEquals(0.0, Car.lateralTyreForce(0, 1, 0, 1));
-    assertEquals(1.0, Car.lateralTyreForce(0, 1, 1, 0));
-    assertEquals(-1.0, Car.lateralTyreForce(0, 1, -1, 0));
-    assertEquals(2.0, Car.lateralTyreForce(0, 1, 2, 0));
+    assertEquals(300.0, Car.lateralTyreForce(0, 1, 1, 0));
+    assertEquals(-300.0, Car.lateralTyreForce(0, 1, -1, 0));
     assertEquals(0.0, Car.lateralTyreForce(10.0, 10.0, 10.0, 10.0));
   }
 
