@@ -103,8 +103,8 @@ public class Car extends Sprite {
     if (accelerating) {
       // FIXME: Decouple acceleration from frame rate
       // TODO: Extract magic number
-      xSpeed += 2 * xHeading;
-      ySpeed += 2 * yHeading;
+      xSpeed += 3 * xHeading;
+      ySpeed += 3 * yHeading;
     }
     if (braking) {
       xSpeed -= 2 * xHeading;
