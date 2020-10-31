@@ -12,6 +12,8 @@ public class Car extends Sprite {
 
   private static final double AIR_DRAG_COEFFICIENT = 0.005;
 
+  private static final double TYRE_TRACTION_COEFFICIENT = 2;
+
   // px/s
   public double getIndicatedSpeed() {
     return indicatedSpeed;
@@ -142,7 +144,8 @@ public class Car extends Sprite {
     if (xSpeed - xHeading == 0) {
       return 0;
     }
-    return Math.sin(signedAngleBetweenVectors(xHeading, yHeading, xSpeed, ySpeed)) * speed;
+    return TYRE_TRACTION_COEFFICIENT * Math
+        .sin(signedAngleBetweenVectors(xHeading, yHeading, xSpeed, ySpeed)) * speed;
   }
 
   protected void updateForces() {
