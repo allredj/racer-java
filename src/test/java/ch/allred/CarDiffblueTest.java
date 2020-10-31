@@ -8,6 +8,19 @@ import org.junit.jupiter.api.Test;
 
 public class CarDiffblueTest {
   @Test
+  public void testInfoString() {
+    // Arrange, Act and Assert
+    assertEquals("Speed:0.000000, xH:1.000000, yH:0.00000, xS:0.000000, yS:0.000000\nxF:0.000000, yF:0.000000",
+        (new Car(2, 3)).infoString());
+  }
+
+  @Test
+  public void testGetHeading() {
+    // Arrange, Act and Assert
+    assertEquals(1.5707963267948966, (new Car(2, 3)).getHeading());
+  }
+
+  @Test
   public void testConstructor() {
     // Arrange and Act
     Car actualCar = new Car(2, 3);
@@ -22,6 +35,31 @@ public class CarDiffblueTest {
     assertSame(expectedImage, actualCar.getImage());
     assertEquals(1.5707963267948966, actualCar.getHeading());
     assertTrue(actualCar.isVisible());
+  }
+
+  @Test
+  public void testDot() {
+    // Arrange, Act and Assert
+    assertEquals(200.0, Car.dot(10.0, 10.0, 10.0, 10.0));
+  }
+
+  @Test
+  public void testVectorLength() {
+    // Arrange, Act and Assert
+    assertEquals(14.142135623730951, Car.vectorLength(10.0, 10.0));
+  }
+
+  @Test
+  public void testSignedAngleBetweenVectors() {
+    // Arrange, Act and Assert
+    assertEquals(0.0, Car.signedAngleBetweenVectors(10.0, 10.0, 10.0, 10.0));
+  }
+
+  @Test
+  public void testLateralTyreForce() {
+    // Arrange, Act and Assert
+    assertEquals(0.0, Car.lateralTyreForce(10.0, 10.0, 10.0, 10.0));
+    assertEquals(20.0, Car.lateralTyreForce(0.0, 10.0, 10.0, 10.0));
   }
 
   @Test
