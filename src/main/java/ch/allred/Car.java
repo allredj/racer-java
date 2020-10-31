@@ -4,9 +4,6 @@ import java.awt.event.KeyEvent;
 
 public class Car extends Sprite {
 
-  // px/s
-  private static final double LOW_SPEED_FILTER = 0.6;
-
   // rad/s
   private static final double TURN_RATE = 4;
 
@@ -162,17 +159,8 @@ public class Car extends Sprite {
   protected void updateSpeed(final double timeDiff) {
     final double dXSpeed = xForce / mass * timeDiff;
     xSpeed += dXSpeed;
-    // low-filter
-    if (xSpeed > -LOW_SPEED_FILTER && xSpeed < LOW_SPEED_FILTER) {
-      xSpeed = 0;
-    }
     final double dYSpeed = yForce / mass * timeDiff;
     ySpeed += dYSpeed;
-    // low-filter
-    if (ySpeed > -LOW_SPEED_FILTER && ySpeed < LOW_SPEED_FILTER) {
-      ySpeed = 0;
-    }
-
     indicatedSpeed = Math.sqrt(xSpeed * xSpeed + ySpeed * ySpeed);
   }
 
