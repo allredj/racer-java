@@ -10,7 +10,7 @@ public class Car extends Sprite {
   // rad/s
   private static final double TURN_RATE = 4;
 
-  private static final double AIR_DRAG_COEFFICIENT = 0.01;
+  private static final double AIR_DRAG_COEFFICIENT = 0.005;
 
   // px/s
   public double getIndicatedSpeed() {
