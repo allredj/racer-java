@@ -125,11 +125,34 @@ public class Car extends Sprite {
     }
   }
 
-  private void updateForces() {
+  static double dot(double u1, double u2, double v1, double v2) {
+    return u1 * v1 + u2 * v2;
+  }
+
+  static double vectorLength(double u1, double u2) {
+    return Math.sqrt(u1 * u1 + u2 * u2);
+  }
+
+  static double signedAngleBetweenVectors(double u1, double u2, double v1, double v2) {
+    return Math.atan2(u2, u1) - Math.atan2(v2, v1);
+  }
+
+  static double lateralTyreForce(double xHeading, double yHeading, double xSpeed, double ySpeed) {
+    final double speed = vectorLength(xSpeed, ySpeed);
+    if (xSpeed - xHeading == 0) {
+      return 0;
+    }
+    return Math.sin(signedAngleBetweenVectors(xHeading, yHeading, xSpeed, ySpeed)) * speed;
+  }
+
+  protected void updateForces() {
     final double xAirResistanceForceNewton = -xSpeed * Math.abs(xSpeed) * AIR_DRAG_COEFFICIENT;
     final double yAirResistanceForceNewton = -ySpeed * Math.abs(ySpeed) * AIR_DRAG_COEFFICIENT;
-    xForce = xAirResistanceForceNewton;
-    yForce = yAirResistanceForceNewton;
+    final double lateralTyreForce = lateralTyreForce(xHeading, yHeading, xSpeed, ySpeed);
+    final double xTyreResistanceForceNewton = -yHeading * lateralTyreForce;
+    final double yTyreResistanceForceNewton = xHeading * lateralTyreForce;
+    xForce = xAirResistanceForceNewton + xTyreResistanceForceNewton;
+    yForce = yAirResistanceForceNewton + yTyreResistanceForceNewton;
   }
 
   //pre-condition: non-zero
