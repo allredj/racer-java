@@ -19,11 +19,12 @@ public class Car extends Sprite {
 
   // radians
   public double getHeading() {
-    return heading;
+    return Math.atan2(xHeading, -yHeading);
   }
 
   private double indicatedSpeed;
-  private double heading;
+  private double xHeading;
+  private double yHeading;
   private boolean accelerating;
   private boolean braking;
   private boolean turningRight;
@@ -48,7 +49,8 @@ public class Car extends Sprite {
     xForce = 0;
     yForce = 0;
     mass = 1;
-    heading = Math.PI / 2;
+    xHeading = 1;
+    yHeading = 0;
   }
 
   public void keyPressed(KeyEvent e) {
@@ -87,24 +89,27 @@ public class Car extends Sprite {
     if (accelerating) {
       // FIXME: Decouple acceleration from frame rate
       // TODO: Extract magic number
-      xSpeed += 2 * Math.sin(heading);
-      ySpeed -= 2 * Math.cos(heading);
+      xSpeed += 2 * xHeading;
+      ySpeed += 2 * yHeading;
     }
     if (braking) {
-      xSpeed -= 2 * Math.sin(heading);
-      ySpeed += 2 * Math.cos(heading);
+      xSpeed -= 2 * xHeading;
+      ySpeed -= 2 * yHeading;
     }
     if (turningLeft) {
-      heading = heading - TURN_RATE * timeDiff;
-      if (heading <= 0) {
-        heading += 2 * Math.PI;
-      }
+      // delta must be acute
+      final double delta = - TURN_RATE * timeDiff;
+      final double newXHeading = Math.cos(delta) * xHeading - Math.sin(delta) * yHeading;
+      final double newYHeading = Math.sin(delta) * xHeading + Math.cos(delta) * yHeading;
+      xHeading = newXHeading;
+      yHeading = newYHeading;
     }
     if (turningRight) {
-      heading = heading + TURN_RATE * timeDiff;
-      if (heading >= 2 * Math.PI) {
-        heading -= 2 * Math.PI;
-      }
+      final double delta = TURN_RATE * timeDiff;
+      final double newXHeading = Math.cos(delta) * xHeading - Math.sin(delta) * yHeading;
+      final double newYHeading = Math.sin(delta) * xHeading + Math.cos(delta) * yHeading;
+      xHeading = newXHeading;
+      yHeading = newYHeading;
     }
   }
 
