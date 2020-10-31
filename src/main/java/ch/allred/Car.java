@@ -17,6 +17,18 @@ public class Car extends Sprite {
     return indicatedSpeed;
   }
 
+  public String infoString() {
+    return String
+        .format("Speed:%f, xH:%f, yH:%g, xS:%f, yS:%f\nxF:%f, yF:%f",
+            indicatedSpeed,
+            xHeading,
+            yHeading,
+            xSpeed,
+            ySpeed,
+            xForce,
+            yForce);
+  }
+
   // radians
   public double getHeading() {
     return Math.atan2(xHeading, -yHeading);

@@ -48,9 +48,7 @@ public class Track extends JPanel implements Runnable {
 
   private void drawStats(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
-    g2d.drawString(
-        String.format("Speed:%f, Heading:%f", car.getIndicatedSpeed(), car.getHeading()),
-        10, 20);
+    g2d.drawString(car.infoString(), 10, 20);
   }
 
   private void updateCar(final double timeDiff) {
