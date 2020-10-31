@@ -110,7 +110,7 @@ public class Car extends Sprite {
     }
     if (turningLeft) {
       // delta must be acute
-      final double delta = - TURN_RATE * timeDiff;
+      final double delta = -TURN_RATE * timeDiff;
       final double newXHeading = Math.cos(delta) * xHeading - Math.sin(delta) * yHeading;
       final double newYHeading = Math.sin(delta) * xHeading + Math.cos(delta) * yHeading;
       xHeading = newXHeading;
@@ -176,7 +176,7 @@ public class Car extends Sprite {
   // pre-condition: non-zero
   public void move(final double timeDiff) {
     if (timeDiff == 0) {
-       return;
+      return;
     }
     updateDynamicsFromInputs(timeDiff);
     updateForces();
