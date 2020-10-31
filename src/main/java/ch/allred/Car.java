@@ -115,6 +115,7 @@ public class Car extends Sprite {
     yForce = yAirResistanceForceNewton;
   }
 
+  //pre-condition: non-zero
   protected void updateSpeed(final double timeDiff) {
     final double dXSpeed = xForce / mass * timeDiff;
     xSpeed += dXSpeed;
@@ -132,7 +133,11 @@ public class Car extends Sprite {
     indicatedSpeed = Math.sqrt(xSpeed * xSpeed + ySpeed * ySpeed);
   }
 
+  // pre-condition: non-zero
   public void move(final double timeDiff) {
+    if (timeDiff == 0) {
+       return;
+    }
     updateDynamicsFromInputs(timeDiff);
     updateForces();
     updateSpeed(timeDiff);
