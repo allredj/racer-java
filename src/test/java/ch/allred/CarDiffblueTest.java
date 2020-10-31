@@ -59,7 +59,6 @@ public class CarDiffblueTest {
   public void testLateralTyreForce() {
     // Arrange, Act and Assert
     assertEquals(0.0, Car.lateralTyreForce(10.0, 10.0, 10.0, 10.0));
-    assertEquals(20.0, Car.lateralTyreForce(0.0, 10.0, 10.0, 10.0));
   }
 
   @Test
