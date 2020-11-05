@@ -1,16 +1,18 @@
-package ch.allred;
+package ch.allred.racer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.awt.Image;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class CarDiffblueTest {
   @Test
   public void testInfoString() {
     // Arrange, Act and Assert
-    assertEquals("Speed:0.000000, xH:1.000000, yH:0.00000, xS:0.000000, yS:0.000000\nxF:0.000000, yF:0.000000",
+    Assertions.assertEquals("Speed:0.000000, xH:1.000000, yH:0.00000, xS:0.000000, yS:0.000000\nxF:0.000000, yF:0.000000",
         (new Car(2, 3)).infoString());
   }
 

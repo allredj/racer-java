@@ -1,14 +1,15 @@
-package ch.allred;
+package ch.allred.racer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class CarTest {
 
   @Test
   public void testAngleBetweenVectors() {
-    assertEquals(0.0, Car.signedAngleBetweenVectors(10.0, 10.0, 10.0, 10.0));
+    Assertions.assertEquals(0.0, Car.signedAngleBetweenVectors(10.0, 10.0, 10.0, 10.0));
   }
 
   @Test

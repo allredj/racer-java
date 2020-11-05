@@ -32,7 +32,7 @@
         <configuration>
           <archive>
             <manifest>
-    	      <mainClass>ch.allred.Racer</mainClass>
+    	      <mainClass>ch.allred.racer.Racer</mainClass>
             </manifest>
           </archive>
         </configuration>
