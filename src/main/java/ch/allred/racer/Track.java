@@ -6,7 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.geom.AffineTransform;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -39,11 +38,7 @@ public class Track extends JPanel implements Runnable {
 
   private void drawCar(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
-    AffineTransform affine = new AffineTransform();
-    affine.translate(car.getX(), car.getY());
-    // center image
-    affine.rotate(car.getHeading(), (double) car.width / 2, (double) car.height / 2);
-    g2d.drawImage(car.getImage(), affine, this);
+    g2d.drawImage(car.getImage(), car.getAffineTransform(), this);
   }
 
   private void drawStats(Graphics g) {

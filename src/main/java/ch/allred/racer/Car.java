@@ -1,6 +1,7 @@
 package ch.allred.racer;
 
 import java.awt.event.KeyEvent;
+import java.awt.geom.AffineTransform;
 
 public class Car extends Sprite {
 
@@ -175,4 +176,13 @@ public class Car extends Sprite {
     x += xSpeed * timeDiff;
     y += ySpeed * timeDiff;
   }
+
+  public AffineTransform getAffineTransform() {
+    AffineTransform affine = new AffineTransform();
+    affine.translate(x, y);
+    // center image
+    affine.rotate(getHeading(), (double) width / 2, (double) height / 2);
+    return affine;
+  }
+
 }
