@@ -1,4 +1,4 @@
-package ch.allred;
+package ch.allred.racer;
 
 import java.awt.event.KeyEvent;
 
