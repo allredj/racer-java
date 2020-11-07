@@ -47,6 +47,11 @@ public class Car extends Sprite {
   private double yForce;
   private double mass; // must be non-zero
 
+  private int forwardKeyCode = KeyEvent.VK_UP;
+  private int backwardKeyCode = KeyEvent.VK_DOWN;
+  private int leftKeyCode = KeyEvent.VK_LEFT;
+  private int rightKeyCode = KeyEvent.VK_RIGHT;
+
   public Car(int x, int y) {
     super(x, y);
     initCar();
@@ -67,32 +72,32 @@ public class Car extends Sprite {
 
   public void keyPressed(KeyEvent e) {
     int key = e.getKeyCode();
-    if (key == KeyEvent.VK_LEFT) {
+    if (key == leftKeyCode) {
       turningLeft = true;
     }
-    if (key == KeyEvent.VK_RIGHT) {
+    if (key == rightKeyCode) {
       turningRight = true;
     }
-    if (key == KeyEvent.VK_UP) {
+    if (key == forwardKeyCode) {
       accelerating = true;
     }
-    if (key == KeyEvent.VK_DOWN) {
+    if (key == backwardKeyCode) {
       braking = true;
     }
   }
 
   public void keyReleased(KeyEvent e) {
     int key = e.getKeyCode();
-    if (key == KeyEvent.VK_LEFT) {
+    if (key == leftKeyCode) {
       turningLeft = false;
     }
-    if (key == KeyEvent.VK_RIGHT) {
+    if (key == rightKeyCode) {
       turningRight = false;
     }
-    if (key == KeyEvent.VK_UP) {
+    if (key == forwardKeyCode) {
       accelerating = false;
     }
-    if (key == KeyEvent.VK_DOWN) {
+    if (key == backwardKeyCode) {
       braking = false;
     }
   }
