@@ -63,8 +63,7 @@ public class Track extends JPanel implements Runnable {
 
   private void drawBox(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
-    Shape rect = new Rectangle(IBOX_X, IBOX_Y, 20, 20);
-    g2d.fill(rect);
+    g2d.fill(box.getBounds());
   }
 
   private void drawCar(Graphics g) {
