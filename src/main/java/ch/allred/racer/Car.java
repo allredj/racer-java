@@ -138,7 +138,6 @@ public class Car extends Sprite {
   }
 
   static double lateralTyreForce(double xHeading, double yHeading, double xSpeed, double ySpeed) {
-    final double speed = vectorLength(xSpeed, ySpeed);
     if (xSpeed - xHeading == 0) {
       return 0;
     }
