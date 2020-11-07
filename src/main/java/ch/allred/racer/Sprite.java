@@ -18,6 +18,14 @@ public class Sprite {
     visible = true;
   }
 
+  public Sprite(int x, int y, int width, int height) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    visible = true;
+  }
+
   protected void loadImage(String imageName) {
     ImageIcon ii = new ImageIcon(imageName);
     image = ii.getImage();
