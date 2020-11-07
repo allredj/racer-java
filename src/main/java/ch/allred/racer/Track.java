@@ -46,10 +46,19 @@ public class Track extends JPanel implements Runnable {
   @Override
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
+    drawWalls(g);
     drawCar(g);
     drawBox(g);
     drawStats(g);
     Toolkit.getDefaultToolkit().sync();
+  }
+
+  private void drawWalls(Graphics g) {
+    Graphics2D g2d = (Graphics2D) g;
+    g2d.fill(northWall);
+    g2d.fill(southWall);
+    g2d.fill(westWall);
+    g2d.fill(eastWall);
   }
 
   private void drawBox(Graphics g) {
