@@ -3,6 +3,8 @@ package ch.allred.racer;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -13,8 +15,11 @@ public class Track extends JPanel implements Runnable {
 
   private final int ICAR_X = 40;
   private final int ICAR_Y = 60;
+  private final int IBOX_X = 200;
+  private final int IBOX_Y = 250;
   private final int DELAY = 10;
   private Car car;
+  private Box box;
   private Thread animatorThread;
 
   public Track(final int width, final int height) {
@@ -26,14 +31,22 @@ public class Track extends JPanel implements Runnable {
     setBackground(Color.GRAY);
     setFocusable(true);
     car = new Car(ICAR_X, ICAR_Y);
+    box = new Box(IBOX_X, IBOX_Y);
   }
 
   @Override
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     drawCar(g);
+    drawBox(g);
     drawStats(g);
     Toolkit.getDefaultToolkit().sync();
+  }
+
+  private void drawBox(Graphics g) {
+    Graphics2D g2d = (Graphics2D) g;
+    Shape rect = new Rectangle(IBOX_X, IBOX_Y, 20, 20);
+    g2d.fill(rect);
   }
 
   private void drawCar(Graphics g) {
