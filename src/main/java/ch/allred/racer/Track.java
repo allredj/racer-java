@@ -17,7 +17,7 @@ public class Track extends JPanel implements Runnable {
   private Car car;
   private Thread animatorThread;
 
-  public Track() {
+  public Track(final int width, final int height) {
     initTrack();
   }
 
