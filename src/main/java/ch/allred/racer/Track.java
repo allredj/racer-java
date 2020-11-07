@@ -77,6 +77,23 @@ public class Track extends JPanel implements Runnable {
     xForceForCar = 0;
     yForceForCar = 0;
   }
+
+  private void checkCollisions() {
+    Rectangle carBounds = car.getBounds();
+    // TODO force depends on mass and speed
+    // FIXME Car should be updated between collisions to avoid multiple force application
+    if (carBounds.intersects(northWall)) {
+      yForceForCar = 10000;
+    }
+    if (carBounds.intersects(southWall)) {
+      yForceForCar = -10000;
+    }
+    if (carBounds.intersects(westWall)) {
+      xForceForCar = 10000;
+    }
+    if (carBounds.intersects(eastWall)) {
+      xForceForCar = -10000;
+    }
   }
 
   private class TAdapter extends KeyAdapter {
@@ -109,6 +126,7 @@ public class Track extends JPanel implements Runnable {
       now = System.currentTimeMillis();
       timeDiff = now - lastTime;
       lastTime = now;
+      checkCollisions();
       updateCar((float) timeDiff / 1000);
       repaint();
       sleep = DELAY - timeDiff;
