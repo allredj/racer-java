@@ -21,9 +21,18 @@ public class Track extends JPanel implements Runnable {
   private Car car;
   private Box box;
   private Thread animatorThread;
+  private final Rectangle northWall;
+  private final Rectangle southWall;
+  private final Rectangle westWall;
+  private final Rectangle eastWall;
+  private final static int boundingWallThickness = 1000;
 
   public Track(final int width, final int height) {
     initTrack();
+    northWall = new Rectangle(0, -boundingWallThickness, width, boundingWallThickness);
+    southWall = new Rectangle(0, height, width, boundingWallThickness);
+    westWall = new Rectangle(-boundingWallThickness, 0, boundingWallThickness, height);
+    eastWall = new Rectangle(width, 0, boundingWallThickness, height);
   }
 
   private void initTrack() {
