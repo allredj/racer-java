@@ -82,7 +82,7 @@ public class CarDiffblueTest {
     Car car = new Car(2, 3);
 
     // Act
-    car.move(10.0);
+    car.move(10.0, 0, 0);
 
     // Assert
     assertEquals(0.0, car.getIndicatedSpeed());

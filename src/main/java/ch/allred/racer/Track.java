@@ -59,8 +59,15 @@ public class Track extends JPanel implements Runnable {
     g2d.drawString(car.infoString(), 10, 20);
   }
 
+  private double xForceForCar = 0;
+  private double yForceForCar = 0;
+
   private void updateCar(final double timeDiff) {
-    car.move(timeDiff);
+    car.move(timeDiff, xForceForCar, yForceForCar);
+    // TODO update with reaction force
+    xForceForCar = 0;
+    yForceForCar = 0;
+  }
   }
 
   private class TAdapter extends KeyAdapter {
