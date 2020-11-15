@@ -28,6 +28,7 @@ public class Track extends JPanel implements Runnable {
   private final Rectangle westWall;
   private final Rectangle eastWall;
   private final static int boundingWallThickness = 30;
+  private final static boolean DRAW_BOUNDING_BOXES = true;
 
   public Track(final int width, final int height) {
     initTrack();
@@ -73,6 +74,11 @@ public class Track extends JPanel implements Runnable {
     Graphics2D g2d = (Graphics2D) g;
     g2d.drawImage(car.getImage(), car.getAffineTransform(), this);
     g2d.drawImage(car2.getImage(), car2.getAffineTransform(), this);
+
+    if (DRAW_BOUNDING_BOXES) {
+      g2d.draw(car.getBounds());
+      g2d.draw(car2.getBounds());
+    }
   }
 
   private void drawStats(Graphics g) {
