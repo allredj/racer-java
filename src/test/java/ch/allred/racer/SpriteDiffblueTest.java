@@ -3,7 +3,6 @@ package ch.allred.racer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.awt.Image;
 import org.junit.jupiter.api.Test;
 
@@ -15,8 +14,21 @@ public class SpriteDiffblueTest {
 
     // Assert
     assertTrue(actualSprite.isVisible());
-    assertEquals(2.0, actualSprite.x);
     assertEquals(3.0, actualSprite.y);
+    assertEquals(2.0, actualSprite.x);
+  }
+
+  @Test
+  public void testConstructor2() {
+    // Arrange and Act
+    Sprite actualSprite = new Sprite(2, 3, 1, 1);
+
+    // Assert
+    assertTrue(actualSprite.isVisible());
+    assertEquals(1, actualSprite.height);
+    assertEquals(3.0, actualSprite.y);
+    assertEquals(1, actualSprite.width);
+    assertEquals(2.0, actualSprite.x);
   }
 
   @Test
