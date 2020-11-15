@@ -135,15 +135,19 @@ public class Track extends JPanel implements Runnable {
     // FIXME Car should be updated between collisions to avoid multiple force application
     if (carBounds.intersects(northWall)) {
       car.ySpeed = WALL_ELASTICITY * Math.abs(car.ySpeed);
+      car.y = car.y + carBounds.intersection(northWall).height;
     }
     if (carBounds.intersects(southWall)) {
       car.ySpeed = -WALL_ELASTICITY * Math.abs(car.ySpeed);
+      car.y = car.y - carBounds.intersection(southWall).height;
     }
     if (carBounds.intersects(westWall)) {
       car.xSpeed = WALL_ELASTICITY * Math.abs(car.xSpeed);
+      car.x = car.x + carBounds.intersection(westWall).width;
     }
     if (carBounds.intersects(eastWall)) {
       car.xSpeed = -WALL_ELASTICITY * Math.abs(car.xSpeed);
+      car.x = car.x - carBounds.intersection(eastWall).width;
     }
     if (carBounds.intersects(box.getBounds())) {
 //      xForceForCar = 10000;
@@ -153,15 +157,19 @@ public class Track extends JPanel implements Runnable {
     // FIXME Car should be updated between collisions to avoid multiple force application
     if (car2Bounds.intersects(northWall)) {
       car2.ySpeed = WALL_ELASTICITY * Math.abs(car.ySpeed);
+      car2.y = car2.y + car2Bounds.intersection(northWall).height;
     }
     if (car2Bounds.intersects(southWall)) {
       car2.ySpeed = -WALL_ELASTICITY * Math.abs(car.ySpeed);
+      car2.y = car2.y - car2Bounds.intersection(southWall).height;
     }
     if (car2Bounds.intersects(westWall)) {
       car2.xSpeed = WALL_ELASTICITY * Math.abs(car.xSpeed);
+      car2.x = car2.x + car2Bounds.intersection(westWall).width;
     }
     if (car2Bounds.intersects(eastWall)) {
       car2.xSpeed = -WALL_ELASTICITY * Math.abs(car.xSpeed);
+      car2.x = car2.x - car2Bounds.intersection(eastWall).width;
     }
 
     if (carBounds.intersects(car2Bounds)) {
