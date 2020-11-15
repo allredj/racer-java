@@ -57,6 +57,17 @@ public class Car extends Sprite {
     initCar();
   }
 
+  public Car(int x, int y, int keySet) {
+    super(x, y);
+    initCar();
+    if (keySet == 1) {
+      forwardKeyCode = KeyEvent.VK_W;
+      backwardKeyCode = KeyEvent.VK_S;
+      leftKeyCode = KeyEvent.VK_A;
+      rightKeyCode = KeyEvent.VK_D;
+    }
+  }
+
   private void initCar() {
     loadImage("src/main/resources/car_red.png");
     getImageDimensions();
