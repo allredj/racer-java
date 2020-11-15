@@ -94,6 +94,18 @@ public class Track extends JPanel implements Runnable {
   }
 
   private void applyCollision() {
+    // ensure cars are disjoint
+    Rectangle carBounds = car.getBounds();
+    Rectangle car2Bounds = car2.getBounds();
+    Rectangle intersection = carBounds.intersection(car2Bounds);
+    if (intersection.width < intersection.height) {
+      car.x = car.x - Math.signum(car2.x - car.x) * intersection.width;
+      car2.x = car2.x + Math.signum(car2.x - car.x) * intersection.width;
+    } else {
+      car.y = car.y - Math.signum(car2.y - car.y) * intersection.height;
+      car2.y = car2.y + Math.signum(car2.y - car.y) * intersection.height;
+    }
+
     if (currentCollisionApplied) {
       return;
     }
