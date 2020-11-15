@@ -14,8 +14,8 @@ public class Track extends JPanel implements Runnable {
 
   private final int ICAR_X = 100;
   private final int ICAR_Y = 100;
-  private final int IBOX_X = 200;
-  private final int IBOX_Y = 250;
+  private final int IBOX_X = 600;
+  private final int IBOX_Y = 600;
   private final int DELAY = 10;
   private Car car;
   private Box box;
