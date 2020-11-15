@@ -161,15 +161,14 @@ public class Car extends Sprite {
         .sin(signedAngleBetweenVectors(xHeading, yHeading, xSpeed, ySpeed));
   }
 
-  protected void updateForces(double externalXForce, double externalYForce) {
+  protected void updateForces() {
     final double xAirResistanceForceNewton = -xSpeed * Math.abs(xSpeed) * AIR_DRAG_COEFFICIENT;
     final double yAirResistanceForceNewton = -ySpeed * Math.abs(ySpeed) * AIR_DRAG_COEFFICIENT;
     final double lateralTyreForce = lateralTyreForce(xHeading, yHeading, xSpeed, ySpeed);
     final double xTyreResistanceForceNewton = -yHeading * lateralTyreForce;
     final double yTyreResistanceForceNewton = xHeading * lateralTyreForce;
-    xForce = xAirResistanceForceNewton + xTyreResistanceForceNewton + externalXForce;
-    yForce = yAirResistanceForceNewton + yTyreResistanceForceNewton + externalYForce;
-    // TODO return reaction
+    xForce = xAirResistanceForceNewton + xTyreResistanceForceNewton;
+    yForce = yAirResistanceForceNewton + yTyreResistanceForceNewton;
   }
 
   //pre-condition: non-zero
@@ -183,12 +182,13 @@ public class Car extends Sprite {
 
   // pre-condition: non-zero
   // TODO return reaction force
-  public void move(final double timeDiff, double externalXForce, double externalYForce) {
+  public void move(final double timeDiff) {
     if (timeDiff == 0) {
       return;
     }
+
     updateDynamicsFromInputs(timeDiff);
-    updateForces(externalXForce, externalYForce);
+    updateForces();
     updateSpeed(timeDiff);
     x += xSpeed * timeDiff;
     y += ySpeed * timeDiff;

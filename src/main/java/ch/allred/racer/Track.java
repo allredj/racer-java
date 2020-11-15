@@ -14,10 +14,13 @@ public class Track extends JPanel implements Runnable {
 
   private final int ICAR_X = 100;
   private final int ICAR_Y = 100;
+  private final int ICAR2_X = 200;
+  private final int ICAR2_Y = 100;
   private final int IBOX_X = 600;
   private final int IBOX_Y = 600;
   private final int DELAY = 10;
   private Car car;
+  private Car car2;
   private Box box;
   private Thread animatorThread;
   private final Rectangle northWall;
@@ -38,7 +41,8 @@ public class Track extends JPanel implements Runnable {
     addKeyListener(new TAdapter());
     setBackground(Color.GRAY);
     setFocusable(true);
-    car = new Car(ICAR_X, ICAR_Y);
+    car = new Car(ICAR_X, ICAR_Y, 0);
+    car2 = new Car(ICAR2_X, ICAR2_Y, 1);
     box = new Box(IBOX_X, IBOX_Y);
   }
 
@@ -46,7 +50,7 @@ public class Track extends JPanel implements Runnable {
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     drawWalls(g);
-    drawCar(g);
+    drawCars(g);
     drawBox(g);
     drawStats(g);
     Toolkit.getDefaultToolkit().sync();
@@ -65,41 +69,87 @@ public class Track extends JPanel implements Runnable {
     g2d.fill(box.getBounds());
   }
 
-  private void drawCar(Graphics g) {
+  private void drawCars(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
     g2d.drawImage(car.getImage(), car.getAffineTransform(), this);
+    g2d.drawImage(car2.getImage(), car2.getAffineTransform(), this);
   }
 
   private void drawStats(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
-    g2d.drawString(car.infoString(), 10, 20);
+    g2d.drawString(car.infoString(), 40, 50);
   }
 
-  private double xForceForCar = 0;
-  private double yForceForCar = 0;
+  boolean currentCollisionApplied = false;
 
-  private void updateCar(final double timeDiff) {
-    car.move(timeDiff, xForceForCar, yForceForCar);
-    // TODO update with reaction force
-    xForceForCar = 0;
-    yForceForCar = 0;
+  private void updateCars(final double timeDiff) {
+    car.move(timeDiff);
+    car2.move(timeDiff);
   }
+
+  private void applyCollision() {
+    if (currentCollisionApplied) {
+      return;
+    }
+    // assume equal weight
+    double meanXSpeed = (car.xSpeed + car2.xSpeed) / 2;
+    double collisionXSpeed = car.xSpeed - car2.xSpeed;
+    double carNewXSpeed = meanXSpeed - 0.3 * collisionXSpeed;
+    double car2NewXSpeed = meanXSpeed + 0.3 * collisionXSpeed;
+    car.xSpeed = carNewXSpeed;
+    car2.xSpeed = car2NewXSpeed;
+
+    double meanYSpeed = (car.ySpeed + car2.ySpeed) / 2;
+    double collisionYSpeed = car.ySpeed - car2.ySpeed;
+    double carNewYSpeed = meanYSpeed - 0.3 * collisionYSpeed;
+    double car2NewYSpeed = meanYSpeed + 0.3 * collisionYSpeed;
+    car.ySpeed = carNewYSpeed;
+    car2.ySpeed = car2NewYSpeed;
+
+    currentCollisionApplied = true;
+  }
+
+  private static final double WALL_ELASTICITY = 0.5;
 
   private void checkCollisions() {
     Rectangle carBounds = car.getBounds();
     // TODO force depends on mass and speed
     // FIXME Car should be updated between collisions to avoid multiple force application
     if (carBounds.intersects(northWall)) {
-      yForceForCar = 10000;
+      car.ySpeed = WALL_ELASTICITY * Math.abs(car.ySpeed);
     }
     if (carBounds.intersects(southWall)) {
-      yForceForCar = -10000;
+      car.ySpeed = -WALL_ELASTICITY * Math.abs(car.ySpeed);
     }
     if (carBounds.intersects(westWall)) {
-      xForceForCar = 10000;
+      car.xSpeed = WALL_ELASTICITY * Math.abs(car.xSpeed);
     }
     if (carBounds.intersects(eastWall)) {
-      xForceForCar = -10000;
+      car.xSpeed = -WALL_ELASTICITY * Math.abs(car.xSpeed);
+    }
+    if (carBounds.intersects(box.getBounds())) {
+//      xForceForCar = 10000;
+    }
+    Rectangle car2Bounds = car2.getBounds();
+    // TODO force depends on mass and speed
+    // FIXME Car should be updated between collisions to avoid multiple force application
+    if (car2Bounds.intersects(northWall)) {
+      car2.ySpeed = WALL_ELASTICITY * Math.abs(car.ySpeed);
+    }
+    if (car2Bounds.intersects(southWall)) {
+      car2.ySpeed = -WALL_ELASTICITY * Math.abs(car.ySpeed);
+    }
+    if (car2Bounds.intersects(westWall)) {
+      car2.xSpeed = WALL_ELASTICITY * Math.abs(car.xSpeed);
+    }
+    if (car2Bounds.intersects(eastWall)) {
+      car2.xSpeed = -WALL_ELASTICITY * Math.abs(car.xSpeed);
+    }
+
+    if (carBounds.intersects(car2Bounds)) {
+      applyCollision();
+    } else {
+      currentCollisionApplied = false;
     }
   }
 
@@ -108,11 +158,13 @@ public class Track extends JPanel implements Runnable {
     @Override
     public void keyReleased(KeyEvent e) {
       car.keyReleased(e);
+      car2.keyReleased(e);
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
       car.keyPressed(e);
+      car2.keyPressed(e);
     }
   }
 
@@ -134,7 +186,7 @@ public class Track extends JPanel implements Runnable {
       timeDiff = now - lastTime;
       lastTime = now;
       checkCollisions();
-      updateCar((float) timeDiff / 1000);
+      updateCars((float) timeDiff / 1000);
       repaint();
       sleep = DELAY - timeDiff;
       if (sleep < 0) {
