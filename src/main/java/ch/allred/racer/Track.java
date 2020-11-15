@@ -86,8 +86,6 @@ public class Track extends JPanel implements Runnable {
     g2d.drawString(car.infoString(), 40, 50);
   }
 
-  boolean currentCollisionApplied = false;
-
   private void updateCars(final double timeDiff) {
     car.move(timeDiff);
     car2.move(timeDiff);
@@ -106,9 +104,6 @@ public class Track extends JPanel implements Runnable {
       car2.y = car2.y + Math.signum(car2.y - car.y) * intersection.height;
     }
 
-    if (currentCollisionApplied) {
-      return;
-    }
     // assume equal weight
     double meanXSpeed = (car.xSpeed + car2.xSpeed) / 2;
     double collisionXSpeed = car.xSpeed - car2.xSpeed;
@@ -123,8 +118,6 @@ public class Track extends JPanel implements Runnable {
     double car2NewYSpeed = meanYSpeed + 0.3 * collisionYSpeed;
     car.ySpeed = carNewYSpeed;
     car2.ySpeed = car2NewYSpeed;
-
-    currentCollisionApplied = true;
   }
 
   private static final double WALL_ELASTICITY = 0.5;
@@ -174,8 +167,6 @@ public class Track extends JPanel implements Runnable {
 
     if (carBounds.intersects(car2Bounds)) {
       applyCollision();
-    } else {
-      currentCollisionApplied = false;
     }
   }
 
