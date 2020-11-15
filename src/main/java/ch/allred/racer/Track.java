@@ -91,32 +91,32 @@ public class Track extends JPanel implements Runnable {
     car2.move(timeDiff);
   }
 
-  private void applyCollision() {
+  private static void applyCollision(Car car1, Car car2) {
     // ensure cars are disjoint
-    Rectangle carBounds = car.getBounds();
+    Rectangle carBounds = car1.getBounds();
     Rectangle car2Bounds = car2.getBounds();
     Rectangle intersection = carBounds.intersection(car2Bounds);
     if (intersection.width < intersection.height) {
-      car.x = car.x - Math.signum(car2.x - car.x) * intersection.width;
-      car2.x = car2.x + Math.signum(car2.x - car.x) * intersection.width;
+      car1.x = car1.x - Math.signum(car2.x - car1.x) * intersection.width;
+      car2.x = car2.x + Math.signum(car2.x - car1.x) * intersection.width;
     } else {
-      car.y = car.y - Math.signum(car2.y - car.y) * intersection.height;
-      car2.y = car2.y + Math.signum(car2.y - car.y) * intersection.height;
+      car1.y = car1.y - Math.signum(car2.y - car1.y) * intersection.height;
+      car2.y = car2.y + Math.signum(car2.y - car1.y) * intersection.height;
     }
 
     // assume equal weight
-    double meanXSpeed = (car.xSpeed + car2.xSpeed) / 2;
-    double collisionXSpeed = car.xSpeed - car2.xSpeed;
+    double meanXSpeed = (car1.xSpeed + car2.xSpeed) / 2;
+    double collisionXSpeed = car1.xSpeed - car2.xSpeed;
     double carNewXSpeed = meanXSpeed - 0.3 * collisionXSpeed;
     double car2NewXSpeed = meanXSpeed + 0.3 * collisionXSpeed;
-    car.xSpeed = carNewXSpeed;
+    car1.xSpeed = carNewXSpeed;
     car2.xSpeed = car2NewXSpeed;
 
-    double meanYSpeed = (car.ySpeed + car2.ySpeed) / 2;
-    double collisionYSpeed = car.ySpeed - car2.ySpeed;
+    double meanYSpeed = (car1.ySpeed + car2.ySpeed) / 2;
+    double collisionYSpeed = car1.ySpeed - car2.ySpeed;
     double carNewYSpeed = meanYSpeed - 0.3 * collisionYSpeed;
     double car2NewYSpeed = meanYSpeed + 0.3 * collisionYSpeed;
-    car.ySpeed = carNewYSpeed;
+    car1.ySpeed = carNewYSpeed;
     car2.ySpeed = car2NewYSpeed;
   }
 
@@ -166,7 +166,7 @@ public class Track extends JPanel implements Runnable {
     }
 
     if (carBounds.intersects(car2Bounds)) {
-      applyCollision();
+      applyCollision(car, car2);
     }
   }
 
