@@ -7,6 +7,8 @@ import javax.swing.ImageIcon;
 public class Sprite {
   protected double x;
   protected double y;
+  public double xSpeed;
+  public double ySpeed;
   protected int width;
   protected int height;
   protected boolean visible;

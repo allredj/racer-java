@@ -41,8 +41,6 @@ public class Car extends Sprite {
   private boolean braking;
   private boolean turningRight;
   private boolean turningLeft;
-  public double xSpeed;
-  public double ySpeed;
   private double xForce;
   private double yForce;
   private double mass; // must be non-zero
