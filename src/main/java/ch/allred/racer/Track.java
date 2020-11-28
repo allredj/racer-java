@@ -89,6 +89,7 @@ public class Track extends JPanel implements Runnable {
   private void updateCars(final double timeDiff) {
     car.move(timeDiff);
     car2.move(timeDiff);
+    box.move(timeDiff);
   }
 
   private static void applyCollision(Sprite sprite1, Sprite sprite2) {
@@ -143,7 +144,7 @@ public class Track extends JPanel implements Runnable {
       car.x = car.x - carBounds.intersection(eastWall).width;
     }
     if (carBounds.intersects(box.getBounds())) {
-//      xForceForCar = 10000;
+      applyCollision(car, box);
     }
     Rectangle car2Bounds = car2.getBounds();
     // TODO force depends on mass and speed
