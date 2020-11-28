@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -124,6 +125,27 @@ public class Track extends JPanel implements Runnable {
   private static final double WALL_ELASTICITY = 0.5;
 
   private void checkCollisions() {
+    ArrayList<Sprite> collidees = new ArrayList<>(); // TODO should be persistent
+    collidees.add(car);
+    collidees.add(car2);
+    collidees.add(box);
+
+    ArrayList<Sprite> colliders = new ArrayList<>(); // TODO should be persistent
+    colliders.add(car);
+    colliders.add(car2);
+    colliders.add(box);
+
+    // FIXME Too many collision checks (reflexivity)
+    for (Sprite collider : colliders) {
+      for (Sprite collidee : collidees) {
+        if (collider.getBounds().intersects(collidee.getBounds())) {
+          if (!collider.equals(collidee)) {
+            applyCollision(collider, collidee);
+          }
+        }
+      }
+    }
+
     Rectangle carBounds = car.getBounds();
     // TODO force depends on mass and speed
     // FIXME Car should be updated between collisions to avoid multiple force application
@@ -143,9 +165,6 @@ public class Track extends JPanel implements Runnable {
       car.xSpeed = -WALL_ELASTICITY * Math.abs(car.xSpeed);
       car.x = car.x - carBounds.intersection(eastWall).width;
     }
-    if (carBounds.intersects(box.getBounds())) {
-      applyCollision(car, box);
-    }
     Rectangle car2Bounds = car2.getBounds();
     // TODO force depends on mass and speed
     // FIXME Car should be updated between collisions to avoid multiple force application
@@ -164,10 +183,6 @@ public class Track extends JPanel implements Runnable {
     if (car2Bounds.intersects(eastWall)) {
       car2.xSpeed = -WALL_ELASTICITY * Math.abs(car.xSpeed);
       car2.x = car2.x - car2Bounds.intersection(eastWall).width;
-    }
-
-    if (carBounds.intersects(car2Bounds)) {
-      applyCollision(car, car2);
     }
   }
 
