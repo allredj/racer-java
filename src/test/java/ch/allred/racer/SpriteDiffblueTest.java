@@ -40,22 +40,10 @@ public class SpriteDiffblueTest {
     sprite.loadImage("Image Name");
 
     // Assert
-    Image expectedImage = sprite.image;
-    assertSame(expectedImage, sprite.getImage());
-  }
-
-  @Test
-  public void testGetImageDimensions() {
-    // Arrange
-    Sprite sprite = new Sprite(2, 3);
-    sprite.loadImage("Image Name");
-
-    // Act
-    sprite.getImageDimensions();
-
-    // Assert
     assertEquals(-1, sprite.height);
     assertEquals(-1, sprite.width);
+    Image expectedImage = sprite.image;
+    assertSame(expectedImage, sprite.getImage());
   }
 
   @Test

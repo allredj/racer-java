@@ -68,7 +68,6 @@ public class Car extends Sprite {
 
   private void initCar() {
     loadImage("src/main/resources/car_red.png");
-    getImageDimensions();
     indicatedSpeed = 0;
     xSpeed = 0;
     ySpeed = 0;
