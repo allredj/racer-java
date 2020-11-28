@@ -17,5 +17,33 @@ public class BoxDiffblueTest {
     assertEquals(20, actualBox.width);
     assertEquals(2.0, actualBox.x);
   }
+
+  @Test
+  public void testUpdateSpeed() {
+    // Arrange
+    Box box = new Box(2, 3);
+
+    // Act
+    box.updateSpeed(10.0);
+
+    // Assert
+    assertEquals(0.0, box.ySpeed);
+    assertEquals(0.0, box.xSpeed);
+  }
+
+  @Test
+  public void testMove() {
+    // Arrange
+    Box box = new Box(2, 3);
+
+    // Act
+    box.move(10.0);
+
+    // Assert
+    assertEquals(0.0, box.ySpeed);
+    assertEquals(3.0, box.y);
+    assertEquals(2.0, box.x);
+    assertEquals(0.0, box.xSpeed);
+  }
 }
 
