@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -24,19 +25,22 @@ public class Track extends JPanel implements Runnable {
   private Car car2;
   private Box box;
   private Thread animatorThread;
-  private final Wall northWall;
-  private final Wall southWall;
-  private final Wall westWall;
-  private final Wall eastWall;
+  private List<Wall> walls;
   private final static int boundingWallThickness = 30;
   private final static boolean DRAW_BOUNDING_BOXES = true;
 
   public Track(final int width, final int height) {
+    // TODO: separate init from construction
     initTrack();
-    northWall = new Wall(0, 0, width, boundingWallThickness);
-    southWall = new Wall(0, height - boundingWallThickness, width, boundingWallThickness);
-    westWall = new Wall(0, 0, boundingWallThickness, height);
-    eastWall = new Wall(width - boundingWallThickness, 0, boundingWallThickness, height);
+    Wall northWall = new Wall(0, 0, width, boundingWallThickness);
+    Wall southWall = new Wall(0, height - boundingWallThickness, width, boundingWallThickness);
+    Wall westWall = new Wall(0, 0, boundingWallThickness, height);
+    Wall eastWall = new Wall(width - boundingWallThickness, 0, boundingWallThickness, height);
+    walls = new ArrayList<>();
+    walls.add(northWall);
+    walls.add(southWall);
+    walls.add(westWall);
+    walls.add(eastWall);
   }
 
   private void initTrack() {
@@ -60,10 +64,7 @@ public class Track extends JPanel implements Runnable {
 
   private void drawWalls(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
-    g2d.fill(northWall.getBounds());
-    g2d.fill(southWall.getBounds());
-    g2d.fill(westWall.getBounds());
-    g2d.fill(eastWall.getBounds());
+    walls.stream().forEach(wall -> g2d.fill(wall.getBounds()));
   }
 
   private void drawBox(Graphics g) {
@@ -150,12 +151,6 @@ public class Track extends JPanel implements Runnable {
     colliders.add(car);
     colliders.add(car2);
     colliders.add(box);
-
-    ArrayList<Wall> walls = new ArrayList<>(); // TODO should be persistent
-    walls.add(northWall);
-    walls.add(southWall);
-    walls.add(westWall);
-    walls.add(eastWall);
 
     // FIXME Too many collision checks (reflexivity)
     for (MovingObject collider : colliders) {
