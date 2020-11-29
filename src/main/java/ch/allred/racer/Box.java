@@ -1,6 +1,6 @@
 package ch.allred.racer;
 
-public class Box extends Sprite {
+public class Box extends MovingObject {
 
   public static final int WIDTH = 20;
   public static final int HEIGHT = 20;

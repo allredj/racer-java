@@ -93,7 +93,7 @@ public class Track extends JPanel implements Runnable {
     box.move(timeDiff);
   }
 
-  private static void applyCollision(Sprite sprite1, Sprite sprite2) {
+  private static void applyCollision(MovingObject sprite1, MovingObject sprite2) {
     // ensure cars are disjoint
     Rectangle carBounds = sprite1.getBounds();
     Rectangle car2Bounds = sprite2.getBounds();
@@ -125,19 +125,19 @@ public class Track extends JPanel implements Runnable {
   private static final double WALL_ELASTICITY = 0.5;
 
   private void checkCollisions() {
-    ArrayList<Sprite> collidees = new ArrayList<>(); // TODO should be persistent
+    ArrayList<MovingObject> collidees = new ArrayList<>(); // TODO should be persistent
     collidees.add(car);
     collidees.add(car2);
     collidees.add(box);
 
-    ArrayList<Sprite> colliders = new ArrayList<>(); // TODO should be persistent
+    ArrayList<MovingObject> colliders = new ArrayList<>(); // TODO should be persistent
     colliders.add(car);
     colliders.add(car2);
     colliders.add(box);
 
     // FIXME Too many collision checks (reflexivity)
-    for (Sprite collider : colliders) {
-      for (Sprite collidee : collidees) {
+    for (MovingObject collider : colliders) {
+      for (MovingObject collidee : collidees) {
         if (collider.getBounds().intersects(collidee.getBounds())) {
           if (!collider.equals(collidee)) {
             applyCollision(collider, collidee);

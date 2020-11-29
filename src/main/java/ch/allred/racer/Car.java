@@ -3,7 +3,7 @@ package ch.allred.racer;
 import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
 
-public class Car extends Sprite {
+public class Car extends MovingObject {
 
   // rad/s
   private static final double TURN_RATE = 4;
