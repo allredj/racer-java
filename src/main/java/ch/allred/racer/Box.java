@@ -4,7 +4,7 @@ public class Box extends MovingObject {
 
   public static final int WIDTH = 20;
   public static final int HEIGHT = 20;
-  private static final double AIR_DRAG_COEFFICIENT = 0.005;
+  private static final double FRICTION_COEFFICIENT = 100;
 
   private double mass; // must be non-zero
   private double xForce;
@@ -16,8 +16,9 @@ public class Box extends MovingObject {
   }
 
   protected void updateForces() {
-    final double xAirResistanceForceNewton = -xSpeed * Math.abs(xSpeed) * AIR_DRAG_COEFFICIENT;
-    final double yAirResistanceForceNewton = -ySpeed * Math.abs(ySpeed) * AIR_DRAG_COEFFICIENT;
+    // FIXME: Object heading must be stable
+    final double xAirResistanceForceNewton = - Math.signum(xSpeed) * FRICTION_COEFFICIENT;
+    final double yAirResistanceForceNewton = - Math.signum(ySpeed) * FRICTION_COEFFICIENT;
     xForce = xAirResistanceForceNewton;
     yForce = yAirResistanceForceNewton;
   }
@@ -33,7 +34,7 @@ public class Box extends MovingObject {
     if (timeDiff == 0) {
       return;
     }
-
+    updateForces();
     updateSpeed(timeDiff);
     x += xSpeed * timeDiff;
     y += ySpeed * timeDiff;
