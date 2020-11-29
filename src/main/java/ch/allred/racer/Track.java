@@ -24,19 +24,19 @@ public class Track extends JPanel implements Runnable {
   private Car car2;
   private Box box;
   private Thread animatorThread;
-  private final PhysicalObject northWall;
-  private final PhysicalObject southWall;
-  private final PhysicalObject westWall;
-  private final PhysicalObject eastWall;
+  private final Wall northWall;
+  private final Wall southWall;
+  private final Wall westWall;
+  private final Wall eastWall;
   private final static int boundingWallThickness = 30;
   private final static boolean DRAW_BOUNDING_BOXES = true;
 
   public Track(final int width, final int height) {
     initTrack();
-    northWall = new PhysicalObject(0, 0, width, boundingWallThickness);
-    southWall = new PhysicalObject(0, height - boundingWallThickness, width, boundingWallThickness);
-    westWall = new PhysicalObject(0, 0, boundingWallThickness, height);
-    eastWall = new PhysicalObject(width - boundingWallThickness, 0, boundingWallThickness, height);
+    northWall = new Wall(0, 0, width, boundingWallThickness);
+    southWall = new Wall(0, height - boundingWallThickness, width, boundingWallThickness);
+    westWall = new Wall(0, 0, boundingWallThickness, height);
+    eastWall = new Wall(width - boundingWallThickness, 0, boundingWallThickness, height);
   }
 
   private void initTrack() {
