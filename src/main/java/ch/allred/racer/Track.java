@@ -20,12 +20,16 @@ public class Track extends JPanel implements Runnable {
   private final int ICAR2_Y = 100;
   private final int IBOX_X = 300;
   private final int IBOX_Y = 300;
+  private final static int CENTRE_WALL_X_POSITION = 200;
+  private final static int CENTRE_WALL_Y_POSITION = 200;
   private final int DELAY = 10;
   private Box box;
   private List<Car> cars;
   private List<MovingObject> movingObjects;
   private List<Wall> walls;
   private final static int boundingWallThickness = 30;
+  private final static int CENTRE_WALL_THICKNESS = 300;
+  private final static int CENTRE_WALL_LENGTH = 700;
   private final static boolean DRAW_BOUNDING_BOXES = true;
 
   public Track(final int width, final int height) {
@@ -35,11 +39,14 @@ public class Track extends JPanel implements Runnable {
     Wall southWall = new Wall(0, height - boundingWallThickness, width, boundingWallThickness);
     Wall westWall = new Wall(0, 0, boundingWallThickness, height);
     Wall eastWall = new Wall(width - boundingWallThickness, 0, boundingWallThickness, height);
+    Wall centreWall = new Wall(CENTRE_WALL_X_POSITION, CENTRE_WALL_Y_POSITION, CENTRE_WALL_LENGTH,
+        CENTRE_WALL_THICKNESS);
     walls = new ArrayList<>();
     walls.add(northWall);
     walls.add(southWall);
     walls.add(westWall);
     walls.add(eastWall);
+    walls.add(centreWall);
   }
 
   private void initTrack() {

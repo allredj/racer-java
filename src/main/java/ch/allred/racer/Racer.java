@@ -5,8 +5,8 @@ import javax.swing.JFrame;
 
 public class Racer extends JFrame {
 
-  private final static int TRACK_WIDTH = 800;
-  private final static int TRACK_HEIGHT = 600;
+  private final static int TRACK_WIDTH = 1100;
+  private final static int TRACK_HEIGHT = 700;
   private final static int BOTTOM_MARGIN = 28;
 
   private void initUI() {
