@@ -22,7 +22,6 @@ public class Track extends JPanel implements Runnable {
   private final int IBOX_Y = 300;
   private final int DELAY = 10;
   private Box box;
-  private Thread animatorThread;
   private List<Car> cars;
   private List<MovingObject> movingObjects;
   private List<Wall> walls;
@@ -175,7 +174,7 @@ public class Track extends JPanel implements Runnable {
   @Override
   public void addNotify() {
     super.addNotify();
-    animatorThread = new Thread(this);
+    final Thread animatorThread = new Thread(this);
     animatorThread.start();
   }
 
