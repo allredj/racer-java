@@ -88,8 +88,8 @@ public class Track extends JPanel implements Runnable {
   }
 
   private void updateCars(final double timeDiff) {
-    car.move(timeDiff);
-    car2.move(timeDiff);
+    car.update(timeDiff);
+    car2.update(timeDiff);
     box.move(timeDiff);
   }
 

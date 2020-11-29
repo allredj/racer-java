@@ -179,7 +179,7 @@ public class Car extends MovingObject {
 
   // pre-condition: non-zero
   // TODO return reaction force
-  public void move(final double timeDiff) {
+  public void update(final double timeDiff) {
     if (timeDiff == 0) {
       return;
     }
