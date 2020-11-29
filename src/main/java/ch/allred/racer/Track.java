@@ -25,6 +25,7 @@ public class Track extends JPanel implements Runnable {
   private Car car2;
   private Box box;
   private Thread animatorThread;
+  private List<MovingObject> movingObjects;
   private List<Wall> walls;
   private final static int boundingWallThickness = 30;
   private final static boolean DRAW_BOUNDING_BOXES = true;
@@ -47,9 +48,13 @@ public class Track extends JPanel implements Runnable {
     addKeyListener(new TAdapter());
     setBackground(Color.GRAY);
     setFocusable(true);
+    movingObjects = new ArrayList<>();
     car = new Car(ICAR_X, ICAR_Y, 0);
+    movingObjects.add(car);
     car2 = new Car(ICAR2_X, ICAR2_Y, 1);
+    movingObjects.add(car2);
     box = new Box(IBOX_X, IBOX_Y);
+    movingObjects.add(box);
   }
 
   @Override
@@ -142,19 +147,9 @@ public class Track extends JPanel implements Runnable {
   }
 
   private void checkCollisions() {
-    ArrayList<MovingObject> collidees = new ArrayList<>(); // TODO should be persistent
-    collidees.add(car);
-    collidees.add(car2);
-    collidees.add(box);
-
-    ArrayList<MovingObject> colliders = new ArrayList<>(); // TODO should be persistent
-    colliders.add(car);
-    colliders.add(car2);
-    colliders.add(box);
-
     // FIXME Too many collision checks (reflexivity)
-    for (MovingObject collider : colliders) {
-      for (MovingObject collidee : collidees) {
+    for (MovingObject collider : movingObjects) {
+      for (MovingObject collidee : movingObjects) {
         if (collider.getBounds().intersects(collidee.getBounds())) {
           if (!collider.equals(collidee)) {
             applyCollision(collider, collidee);
@@ -163,7 +158,7 @@ public class Track extends JPanel implements Runnable {
       }
     }
 
-    for (MovingObject collider : colliders) {
+    for (MovingObject collider : movingObjects) {
       for (Wall wall : walls) {
         if (collider.getBounds().intersects(wall.getBounds())) {
           applyCollision(collider, wall);
