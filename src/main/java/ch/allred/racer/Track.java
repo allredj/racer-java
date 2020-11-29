@@ -100,10 +100,8 @@ public class Track extends JPanel implements Runnable {
     Rectangle intersection = carBounds.intersection(car2Bounds);
     if (intersection.width < intersection.height) {
       object1.x = object1.x - Math.signum(object2.x - object1.x) * intersection.width;
-      object2.x = object2.x + Math.signum(object2.x - object1.x) * intersection.width;
     } else {
       object1.y = object1.y - Math.signum(object2.y - object1.y) * intersection.height;
-      object2.y = object2.y + Math.signum(object2.y - object1.y) * intersection.height;
     }
 
     // assume equal weight
