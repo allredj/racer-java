@@ -53,8 +53,8 @@ public class Track extends JPanel implements Runnable {
     setBackground(Color.GRAY);
     setFocusable(true);
     cars = new ArrayList<>();
-    Car car1 = new Car(TrackData.getCarX(0), TrackData.getCarY(0), 0);
-    Car car2 = new Car(TrackData.getCarX(1), TrackData.getCarY(1), 1);
+    Car car1 = Car.fromIndex(0);
+    Car car2 = Car.fromIndex(1);
     cars.add(car1);
     cars.add(car2);
     movingObjects = new ArrayList<>();

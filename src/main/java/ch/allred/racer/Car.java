@@ -64,15 +64,19 @@ public class Car extends MovingObject {
     }
   }
 
-  public Car(int x, int y, int keySet) {
+  public Car(int x, int y, int carIndex) {
     super(x, y);
     initCar();
-    if (keySet == 1) {
+    if (carIndex == 1) {
       forwardKeyCode = KeyEvent.VK_W;
       backwardKeyCode = KeyEvent.VK_S;
       leftKeyCode = KeyEvent.VK_A;
       rightKeyCode = KeyEvent.VK_D;
     }
+  }
+
+  public static Car fromIndex(int carIndex) {
+    return new Car(TrackData.getCarX(carIndex), TrackData.getCarY(carIndex), carIndex);
   }
 
   private void initCar() {
