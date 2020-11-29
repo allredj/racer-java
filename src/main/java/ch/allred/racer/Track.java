@@ -104,6 +104,7 @@ public class Track extends JPanel implements Runnable {
       object1.y = object1.y - Math.signum(object2.y - object1.y) * intersection.height;
     }
 
+    // FIXME consider angle of collision, cf wall collision
     // assume equal weight
     double meanXSpeed = (object1.xSpeed + object2.xSpeed) / 2;
     double collisionXSpeed = object1.xSpeed - object2.xSpeed;
