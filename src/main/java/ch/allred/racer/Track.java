@@ -93,33 +93,33 @@ public class Track extends JPanel implements Runnable {
     box.move(timeDiff);
   }
 
-  private static void applyCollision(MovingObject sprite1, MovingObject sprite2) {
+  private static void applyCollision(MovingObject object1, MovingObject object2) {
     // ensure cars are disjoint
-    Rectangle carBounds = sprite1.getBounds();
-    Rectangle car2Bounds = sprite2.getBounds();
+    Rectangle carBounds = object1.getBounds();
+    Rectangle car2Bounds = object2.getBounds();
     Rectangle intersection = carBounds.intersection(car2Bounds);
     if (intersection.width < intersection.height) {
-      sprite1.x = sprite1.x - Math.signum(sprite2.x - sprite1.x) * intersection.width;
-      sprite2.x = sprite2.x + Math.signum(sprite2.x - sprite1.x) * intersection.width;
+      object1.x = object1.x - Math.signum(object2.x - object1.x) * intersection.width;
+      object2.x = object2.x + Math.signum(object2.x - object1.x) * intersection.width;
     } else {
-      sprite1.y = sprite1.y - Math.signum(sprite2.y - sprite1.y) * intersection.height;
-      sprite2.y = sprite2.y + Math.signum(sprite2.y - sprite1.y) * intersection.height;
+      object1.y = object1.y - Math.signum(object2.y - object1.y) * intersection.height;
+      object2.y = object2.y + Math.signum(object2.y - object1.y) * intersection.height;
     }
 
     // assume equal weight
-    double meanXSpeed = (sprite1.xSpeed + sprite2.xSpeed) / 2;
-    double collisionXSpeed = sprite1.xSpeed - sprite2.xSpeed;
+    double meanXSpeed = (object1.xSpeed + object2.xSpeed) / 2;
+    double collisionXSpeed = object1.xSpeed - object2.xSpeed;
     double carNewXSpeed = meanXSpeed - 0.3 * collisionXSpeed;
     double car2NewXSpeed = meanXSpeed + 0.3 * collisionXSpeed;
-    sprite1.xSpeed = carNewXSpeed;
-    sprite2.xSpeed = car2NewXSpeed;
+    object1.xSpeed = carNewXSpeed;
+    object2.xSpeed = car2NewXSpeed;
 
-    double meanYSpeed = (sprite1.ySpeed + sprite2.ySpeed) / 2;
-    double collisionYSpeed = sprite1.ySpeed - sprite2.ySpeed;
+    double meanYSpeed = (object1.ySpeed + object2.ySpeed) / 2;
+    double collisionYSpeed = object1.ySpeed - object2.ySpeed;
     double carNewYSpeed = meanYSpeed - 0.3 * collisionYSpeed;
     double car2NewYSpeed = meanYSpeed + 0.3 * collisionYSpeed;
-    sprite1.ySpeed = carNewYSpeed;
-    sprite2.ySpeed = car2NewYSpeed;
+    object1.ySpeed = carNewYSpeed;
+    object2.ySpeed = car2NewYSpeed;
   }
 
   private static final double WALL_ELASTICITY = 0.5;
