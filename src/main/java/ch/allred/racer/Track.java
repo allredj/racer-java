@@ -32,6 +32,8 @@ public class Track extends JPanel implements Runnable {
   private final static int CENTRE_WALL_LENGTH = 700;
   private final static boolean DRAW_BOUNDING_BOXES = true;
 
+  private final NonPhyiscalObject startingLine;
+
   public Track(final int width, final int height) {
     // TODO: separate init from construction
     initTrack();
@@ -47,6 +49,8 @@ public class Track extends JPanel implements Runnable {
     walls.add(westWall);
     walls.add(eastWall);
     walls.add(centreWall);
+
+    startingLine = new NonPhyiscalObject(250, boundingWallThickness , 2, CENTRE_WALL_Y_POSITION - boundingWallThickness);
   }
 
   private void initTrack() {
@@ -69,6 +73,7 @@ public class Track extends JPanel implements Runnable {
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     drawWalls(g);
+    drawStartingLine(g);
     drawCars(g);
     drawBox(g);
     drawStats(g);
@@ -78,6 +83,13 @@ public class Track extends JPanel implements Runnable {
   private void drawWalls(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
     walls.stream().forEach(wall -> g2d.fill(wall.getBounds()));
+  }
+
+  private void drawStartingLine(Graphics g) {
+    Graphics2D g2d = (Graphics2D) g;
+    g2d.setColor(Color.WHITE);
+    g2d.fill(startingLine.getBounds());
+    g2d.setColor(Color.DARK_GRAY);
   }
 
   private void drawBox(Graphics g) {
