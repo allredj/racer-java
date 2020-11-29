@@ -90,7 +90,7 @@ public class Track extends JPanel implements Runnable {
   private void updateCars(final double timeDiff) {
     car.update(timeDiff);
     car2.update(timeDiff);
-    box.move(timeDiff);
+    box.update(timeDiff);
   }
 
   private static void applyCollision(MovingObject object1, MovingObject object2) {

@@ -37,7 +37,7 @@ public class BoxDiffblueTest {
     Box box = new Box(2, 3);
 
     // Act
-    box.move(10.0);
+    box.update(10.0);
 
     // Assert
     assertEquals(0.0, box.ySpeed);

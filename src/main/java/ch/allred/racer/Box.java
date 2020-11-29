@@ -29,7 +29,7 @@ public class Box extends MovingObject {
     ySpeed += dYSpeed;
   }
 
-  public void move(final double timeDiff) {
+  public void update(final double timeDiff) {
     if (timeDiff == 0) {
       return;
     }
