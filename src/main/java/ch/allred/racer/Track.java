@@ -14,10 +14,6 @@ import javax.swing.JPanel;
 
 public class Track extends JPanel implements Runnable {
 
-  private final int ICAR_X = 200;
-  private final int ICAR_Y = 50;
-  private final int ICAR2_X = 200;
-  private final int ICAR2_Y = 110;
   private final int IBOX_X = 300;
   private final int IBOX_Y = 300;
   private final static int CENTRE_WALL_X_POSITION = 200;
@@ -57,8 +53,8 @@ public class Track extends JPanel implements Runnable {
     setBackground(Color.GRAY);
     setFocusable(true);
     cars = new ArrayList<>();
-    Car car1 = new Car(ICAR_X, ICAR_Y, 0);
-    Car car2 = new Car(ICAR2_X, ICAR2_Y, 1);
+    Car car1 = new Car(TrackData.getCarX(0), TrackData.getCarY(0), 0);
+    Car car2 = new Car(TrackData.getCarX(1), TrackData.getCarY(1), 1);
     cars.add(car1);
     cars.add(car2);
     movingObjects = new ArrayList<>();
