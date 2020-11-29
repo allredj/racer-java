@@ -1,6 +1,6 @@
 package ch.allred.racer;
 
-public class PhysicalObject extends Sprite {
+public abstract class PhysicalObject extends Sprite {
 
   public PhysicalObject(final int x, final int y) {
     super(x, y);
