@@ -6,10 +6,6 @@ public class Box extends MovingObject {
   public static final int HEIGHT = 20;
   private static final double FRICTION_COEFFICIENT = 100;
 
-  private double mass; // must be non-zero
-  private double xForce;
-  private double yForce;
-
   public Box(final int x, final int y) {
     super(x, y, WIDTH, HEIGHT);
     mass = 1;

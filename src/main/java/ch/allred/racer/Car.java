@@ -41,9 +41,6 @@ public class Car extends MovingObject {
   private boolean braking;
   private boolean turningRight;
   private boolean turningLeft;
-  private double xForce;
-  private double yForce;
-  private double mass; // must be non-zero
 
   private int forwardKeyCode = KeyEvent.VK_UP;
   private int backwardKeyCode = KeyEvent.VK_DOWN;
