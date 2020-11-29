@@ -12,4 +12,6 @@ public abstract class MovingObject extends PhysicalObject {
   public MovingObject(final int x, final int y, final int width, final int height) {
     super(x, y, width, height);
   }
+
+  public abstract void update(final double timeDiff);
 }

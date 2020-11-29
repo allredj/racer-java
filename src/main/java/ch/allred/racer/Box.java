@@ -32,6 +32,7 @@ public class Box extends MovingObject {
     ySpeed += dYSpeed;
   }
 
+  @Override
   public void update(final double timeDiff) {
     if (timeDiff == 0) {
       return;
