@@ -16,13 +16,15 @@ public class Box extends MovingObject {
   }
 
   protected void updateForces() {
-    // FIXME: Object heading must be stable
-    final double xTrackFrictionForce = - Math.signum(xSpeed) * FRICTION_COEFFICIENT;
-    final double yTrackFrictionForce = - Math.signum(ySpeed) * FRICTION_COEFFICIENT;
+    // Lower bound to both model static friction and to avoid division by 0.
+    final double speed = Math.max(1, Math.sqrt(xSpeed * xSpeed + ySpeed * ySpeed));
+    final double xTrackFrictionForce = - FRICTION_COEFFICIENT * xSpeed / speed;
+    final double yTrackFrictionForce = - FRICTION_COEFFICIENT * ySpeed / speed;
     xForce = xTrackFrictionForce;
     yForce = yTrackFrictionForce;
   }
 
+  // apply forces
   protected void updateSpeed(final double timeDiff) {
     final double dXSpeed = xForce / mass * timeDiff;
     xSpeed += dXSpeed;
