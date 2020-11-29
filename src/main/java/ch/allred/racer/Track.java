@@ -171,9 +171,7 @@ public class Track extends JPanel implements Runnable {
     for (MovingObject collider : colliders) {
       for (Wall wall : walls) {
         if (collider.getBounds().intersects(wall.getBounds())) {
-          if (!collider.equals(wall)) {
-            applyCollision(collider, wall);
-          }
+          applyCollision(collider, wall);
         }
       }
     }
