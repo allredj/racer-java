@@ -23,7 +23,6 @@ public class Track extends JPanel implements Runnable {
   private final static int CENTRE_WALL_X_POSITION = 200;
   private final static int CENTRE_WALL_Y_POSITION = 200;
   private final int DELAY = 10;
-  private Box box;
   private List<Car> cars;
   private List<MovingObject> movingObjects;
   private List<Wall> walls;
@@ -64,8 +63,7 @@ public class Track extends JPanel implements Runnable {
     movingObjects = new ArrayList<>();
     movingObjects.add(car1);
     movingObjects.add(car2);
-    box = new Box(IBOX_X, IBOX_Y);
-    movingObjects.add(box);
+    movingObjects.add(new Box(IBOX_X, IBOX_Y));
   }
 
   @Override
