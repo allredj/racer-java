@@ -48,7 +48,8 @@ public class Track extends JPanel implements Runnable {
     walls.add(eastWall);
     walls.add(centreWall);
 
-    startingLine = new NonPhyiscalObject(250, boundingWallThickness , 2, CENTRE_WALL_Y_POSITION - boundingWallThickness);
+    startingLine = new NonPhyiscalObject(250, boundingWallThickness, 2,
+        CENTRE_WALL_Y_POSITION - boundingWallThickness);
   }
 
   private void initTrack() {
@@ -150,10 +151,12 @@ public class Track extends JPanel implements Runnable {
   }
 
   private class TAdapter extends KeyAdapter {
+
     @Override
     public void keyReleased(KeyEvent e) {
       cars.stream().forEach(car -> car.keyReleased(e));
     }
+
     @Override
     public void keyPressed(KeyEvent e) {
       cars.stream().forEach(car -> car.keyPressed(e));
