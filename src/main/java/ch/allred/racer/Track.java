@@ -21,10 +21,9 @@ public class Track extends JPanel implements Runnable {
   private final int IBOX_X = 300;
   private final int IBOX_Y = 300;
   private final int DELAY = 10;
-  private Car car;
-  private Car car2;
   private Box box;
   private Thread animatorThread;
+  private List<Car> cars;
   private List<MovingObject> movingObjects;
   private List<Wall> walls;
   private final static int boundingWallThickness = 30;
@@ -48,10 +47,13 @@ public class Track extends JPanel implements Runnable {
     addKeyListener(new TAdapter());
     setBackground(Color.GRAY);
     setFocusable(true);
+    cars = new ArrayList<>();
+    Car car1 = new Car(ICAR_X, ICAR_Y, 0);
+    Car car2 = new Car(ICAR2_X, ICAR2_Y, 1);
+    cars.add(car1);
+    cars.add(car2);
     movingObjects = new ArrayList<>();
-    car = new Car(ICAR_X, ICAR_Y, 0);
-    movingObjects.add(car);
-    car2 = new Car(ICAR2_X, ICAR2_Y, 1);
+    movingObjects.add(car1);
     movingObjects.add(car2);
     box = new Box(IBOX_X, IBOX_Y);
     movingObjects.add(box);
@@ -79,18 +81,16 @@ public class Track extends JPanel implements Runnable {
 
   private void drawCars(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
-    g2d.drawImage(car.getImage(), car.getAffineTransform(), this);
-    g2d.drawImage(car2.getImage(), car2.getAffineTransform(), this);
+    cars.stream().forEach(car -> g2d.drawImage(car.getImage(), car.getAffineTransform(), this));
 
     if (DRAW_BOUNDING_BOXES) {
-      g2d.draw(car.getBounds());
-      g2d.draw(car2.getBounds());
+      cars.stream().forEach(car -> g2d.draw(car.getBounds()));
     }
   }
 
   private void drawStats(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
-    g2d.drawString(car.infoString(), 40, 50);
+    g2d.drawString(cars.get(0).infoString(), 40, 50);
   }
 
   private static void applyCollision(MovingObject object1, MovingObject object2) {
@@ -162,17 +162,13 @@ public class Track extends JPanel implements Runnable {
   }
 
   private class TAdapter extends KeyAdapter {
-
     @Override
     public void keyReleased(KeyEvent e) {
-      car.keyReleased(e);
-      car2.keyReleased(e);
+      cars.stream().forEach(car -> car.keyReleased(e));
     }
-
     @Override
     public void keyPressed(KeyEvent e) {
-      car.keyPressed(e);
-      car2.keyPressed(e);
+      cars.stream().forEach(car -> car.keyPressed(e));
     }
   }
 
