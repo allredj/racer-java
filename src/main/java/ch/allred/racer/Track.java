@@ -14,10 +14,10 @@ import javax.swing.JPanel;
 
 public class Track extends JPanel implements Runnable {
 
-  private final int ICAR_X = 100;
-  private final int ICAR_Y = 100;
+  private final int ICAR_X = 200;
+  private final int ICAR_Y = 50;
   private final int ICAR2_X = 200;
-  private final int ICAR2_Y = 100;
+  private final int ICAR2_Y = 110;
   private final int IBOX_X = 300;
   private final int IBOX_Y = 300;
   private final static int CENTRE_WALL_X_POSITION = 200;
