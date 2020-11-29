@@ -28,8 +28,8 @@ public class CarDiffblueTest {
     // Assert
     assertEquals(0.0, actualCar.getIndicatedSpeed());
     assertEquals(50, actualCar.height);
-    assertEquals(0.0, actualCar.ySpeed);
     assertEquals(3.0, actualCar.y);
+    assertEquals(0.0, actualCar.ySpeed);
     assertEquals(50, actualCar.width);
     assertEquals(2.0, actualCar.x);
     assertEquals(0.0, actualCar.xSpeed);
@@ -47,8 +47,8 @@ public class CarDiffblueTest {
     // Assert
     assertEquals(0.0, actualCar.getIndicatedSpeed());
     assertEquals(50, actualCar.height);
-    assertEquals(0.0, actualCar.ySpeed);
     assertEquals(3.0, actualCar.y);
+    assertEquals(0.0, actualCar.ySpeed);
     assertEquals(50, actualCar.width);
     assertEquals(2.0, actualCar.x);
     assertEquals(0.0, actualCar.xSpeed);
@@ -66,8 +66,8 @@ public class CarDiffblueTest {
     // Assert
     assertEquals(0.0, actualCar.getIndicatedSpeed());
     assertEquals(50, actualCar.height);
-    assertEquals(0.0, actualCar.ySpeed);
     assertEquals(3.0, actualCar.y);
+    assertEquals(0.0, actualCar.ySpeed);
     assertEquals(50, actualCar.width);
     assertEquals(2.0, actualCar.x);
     assertEquals(0.0, actualCar.xSpeed);
@@ -117,7 +117,7 @@ public class CarDiffblueTest {
   }
 
   @Test
-  public void testMove() {
+  public void testUpdate() {
     // Arrange
     Car car = new Car(2, 3);
 
@@ -126,8 +126,8 @@ public class CarDiffblueTest {
 
     // Assert
     assertEquals(0.0, car.getIndicatedSpeed());
-    assertEquals(0.0, car.ySpeed);
     assertEquals(3.0, car.y);
+    assertEquals(0.0, car.ySpeed);
     assertEquals(2.0, car.x);
     assertEquals(0.0, car.xSpeed);
   }

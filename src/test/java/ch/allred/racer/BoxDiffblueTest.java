@@ -32,7 +32,7 @@ public class BoxDiffblueTest {
   }
 
   @Test
-  public void testMove() {
+  public void testUpdate() {
     // Arrange
     Box box = new Box(2, 3);
 
@@ -40,8 +40,8 @@ public class BoxDiffblueTest {
     box.update(10.0);
 
     // Assert
-    assertEquals(0.0, box.ySpeed);
     assertEquals(3.0, box.y);
+    assertEquals(0.0, box.ySpeed);
     assertEquals(2.0, box.x);
     assertEquals(0.0, box.xSpeed);
   }
