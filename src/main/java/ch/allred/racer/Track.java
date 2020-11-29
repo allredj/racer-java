@@ -151,6 +151,12 @@ public class Track extends JPanel implements Runnable {
     colliders.add(car2);
     colliders.add(box);
 
+    ArrayList<Wall> walls = new ArrayList<>(); // TODO should be persistent
+    walls.add(northWall);
+    walls.add(southWall);
+    walls.add(westWall);
+    walls.add(eastWall);
+
     // FIXME Too many collision checks (reflexivity)
     for (MovingObject collider : colliders) {
       for (MovingObject collidee : collidees) {
@@ -162,35 +168,14 @@ public class Track extends JPanel implements Runnable {
       }
     }
 
-    Rectangle carBounds = car.getBounds();
-    // TODO force depends on mass and speed
-    // FIXME Car should be updated between collisions to avoid multiple force application
-    if (carBounds.intersects(northWall.getBounds())) {
-      applyCollision(car, northWall);
-    }
-    if (carBounds.intersects(southWall.getBounds())) {
-      applyCollision(car, southWall);
-    }
-    if (carBounds.intersects(westWall.getBounds())) {
-      applyCollision(car, westWall);
-    }
-    if (carBounds.intersects(eastWall.getBounds())) {
-      applyCollision(car, eastWall);
-    }
-    Rectangle car2Bounds = car2.getBounds();
-    // TODO force depends on mass and speed
-    // FIXME Car should be updated between collisions to avoid multiple force application
-    if (car2Bounds.intersects(northWall.getBounds())) {
-      applyCollision(car2, northWall);
-    }
-    if (car2Bounds.intersects(southWall.getBounds())) {
-      applyCollision(car2, southWall);
-    }
-    if (car2Bounds.intersects(westWall.getBounds())) {
-      applyCollision(car2, westWall);
-    }
-    if (car2Bounds.intersects(eastWall.getBounds())) {
-      applyCollision(car2, eastWall);
+    for (MovingObject collider : colliders) {
+      for (Wall wall : walls) {
+        if (collider.getBounds().intersects(wall.getBounds())) {
+          if (!collider.equals(wall)) {
+            applyCollision(collider, wall);
+          }
+        }
+      }
     }
   }
 
