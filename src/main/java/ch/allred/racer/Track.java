@@ -72,33 +72,30 @@ public class Track extends JPanel implements Runnable {
   @Override
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
-    drawWalls(g);
-    drawStartingLine(g);
-    drawCars(g);
-    drawBox(g);
-    drawStats(g);
+    Graphics2D g2d = (Graphics2D) g;
+    drawWalls(g2d);
+    drawStartingLine(g2d);
+    drawCars(g2d);
+    drawBox(g2d);
+    drawStats(g2d);
     Toolkit.getDefaultToolkit().sync();
   }
 
-  private void drawWalls(Graphics g) {
-    Graphics2D g2d = (Graphics2D) g;
+  private void drawWalls(Graphics2D g2d) {
     walls.stream().forEach(wall -> g2d.fill(wall.getBounds()));
   }
 
-  private void drawStartingLine(Graphics g) {
-    Graphics2D g2d = (Graphics2D) g;
+  private void drawStartingLine(Graphics2D g2d) {
     g2d.setColor(Color.WHITE);
     g2d.fill(startingLine.getBounds());
     g2d.setColor(Color.DARK_GRAY);
   }
 
-  private void drawBox(Graphics g) {
-    Graphics2D g2d = (Graphics2D) g;
+  private void drawBox(Graphics2D g2d) {
     g2d.fill(box.getBounds());
   }
 
-  private void drawCars(Graphics g) {
-    Graphics2D g2d = (Graphics2D) g;
+  private void drawCars(Graphics2D g2d) {
     cars.stream().forEach(car -> g2d.drawImage(car.getImage(), car.getAffineTransform(), this));
 
     if (DRAW_BOUNDING_BOXES) {
@@ -106,8 +103,7 @@ public class Track extends JPanel implements Runnable {
     }
   }
 
-  private void drawStats(Graphics g) {
-    Graphics2D g2d = (Graphics2D) g;
+  private void drawStats(Graphics2D g2d) {
     g2d.drawString(cars.get(0).infoString(), 40, 50);
   }
 
