@@ -122,6 +122,23 @@ public class Track extends JPanel implements Runnable {
 
   private static final double WALL_ELASTICITY = 0.5;
 
+  private static void applyCollision(MovingObject object1, Wall object2) {
+    // ensure cars are disjoint
+    Rectangle carBounds = object1.getBounds();
+    Rectangle car2Bounds = object2.getBounds();
+    Rectangle intersection = carBounds.intersection(car2Bounds);
+    if (intersection.width < intersection.height) {
+      // horizontal collision
+      object1.x = object1.x - Math.signum(object2.x - object1.x) * intersection.width;
+      object1.xSpeed = -WALL_ELASTICITY * object1.xSpeed;
+    } else {
+      // vertical collision
+      object1.y = object1.y - Math.signum(object2.y - object1.y) * intersection.height;
+      object1.ySpeed = -WALL_ELASTICITY * object1.ySpeed;
+    }
+
+  }
+
   private void checkCollisions() {
     ArrayList<MovingObject> collidees = new ArrayList<>(); // TODO should be persistent
     collidees.add(car);
@@ -148,39 +165,31 @@ public class Track extends JPanel implements Runnable {
     // TODO force depends on mass and speed
     // FIXME Car should be updated between collisions to avoid multiple force application
     if (carBounds.intersects(northWall.getBounds())) {
-      car.ySpeed = WALL_ELASTICITY * Math.abs(car.ySpeed);
-      car.y = car.y + carBounds.intersection(northWall.getBounds()).height;
+      applyCollision(car, northWall);
     }
     if (carBounds.intersects(southWall.getBounds())) {
-      car.ySpeed = -WALL_ELASTICITY * Math.abs(car.ySpeed);
-      car.y = car.y - carBounds.intersection(southWall.getBounds()).height;
+      applyCollision(car, southWall);
     }
     if (carBounds.intersects(westWall.getBounds())) {
-      car.xSpeed = WALL_ELASTICITY * Math.abs(car.xSpeed);
-      car.x = car.x + carBounds.intersection(westWall.getBounds()).width;
+      applyCollision(car, westWall);
     }
     if (carBounds.intersects(eastWall.getBounds())) {
-      car.xSpeed = -WALL_ELASTICITY * Math.abs(car.xSpeed);
-      car.x = car.x - carBounds.intersection(eastWall.getBounds()).width;
+      applyCollision(car, eastWall);
     }
     Rectangle car2Bounds = car2.getBounds();
     // TODO force depends on mass and speed
     // FIXME Car should be updated between collisions to avoid multiple force application
     if (car2Bounds.intersects(northWall.getBounds())) {
-      car2.ySpeed = WALL_ELASTICITY * Math.abs(car.ySpeed);
-      car2.y = car2.y + car2Bounds.intersection(northWall.getBounds()).height;
+      applyCollision(car2, northWall);
     }
     if (car2Bounds.intersects(southWall.getBounds())) {
-      car2.ySpeed = -WALL_ELASTICITY * Math.abs(car.ySpeed);
-      car2.y = car2.y - car2Bounds.intersection(southWall.getBounds()).height;
+      applyCollision(car2, southWall);
     }
     if (car2Bounds.intersects(westWall.getBounds())) {
-      car2.xSpeed = WALL_ELASTICITY * Math.abs(car.xSpeed);
-      car2.x = car2.x + car2Bounds.intersection(westWall.getBounds()).width;
+      applyCollision(car2, westWall);
     }
     if (car2Bounds.intersects(eastWall.getBounds())) {
-      car2.xSpeed = -WALL_ELASTICITY * Math.abs(car.xSpeed);
-      car2.x = car2.x - car2Bounds.intersection(eastWall.getBounds()).width;
+      applyCollision(car2, eastWall);
     }
   }
 
