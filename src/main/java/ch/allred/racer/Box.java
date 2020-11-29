@@ -17,10 +17,10 @@ public class Box extends MovingObject {
 
   protected void updateForces() {
     // FIXME: Object heading must be stable
-    final double xAirResistanceForceNewton = - Math.signum(xSpeed) * FRICTION_COEFFICIENT;
-    final double yAirResistanceForceNewton = - Math.signum(ySpeed) * FRICTION_COEFFICIENT;
-    xForce = xAirResistanceForceNewton;
-    yForce = yAirResistanceForceNewton;
+    final double xTrackFrictionForce = - Math.signum(xSpeed) * FRICTION_COEFFICIENT;
+    final double yTrackFrictionForce = - Math.signum(ySpeed) * FRICTION_COEFFICIENT;
+    xForce = xTrackFrictionForce;
+    yForce = yTrackFrictionForce;
   }
 
   protected void updateSpeed(final double timeDiff) {
