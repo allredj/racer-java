@@ -1,6 +1,6 @@
 package ch.allred.racer;
 
-public class MovingObject extends PhysicalObject {
+public abstract class MovingObject extends PhysicalObject {
 
   public double xSpeed;
   public double ySpeed;
