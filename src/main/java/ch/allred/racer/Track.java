@@ -72,29 +72,11 @@ public class Track extends JPanel implements Runnable {
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g;
-    drawWalls(g2d);
-    drawStartingLine(g2d);
-    drawCars(g2d);
-    drawBox(g2d);
+    walls.stream().forEach(wall -> wall.draw(g2d, this));
+    startingLine.draw(g2d, this);
+    movingObjects.stream().forEach(obj -> obj.draw(g2d, this));
     drawStats(g2d);
     Toolkit.getDefaultToolkit().sync();
-  }
-
-  private void drawWalls(Graphics2D g2d) {
-    walls.stream().forEach(wall -> wall.draw(g2d, this));
-  }
-
-  private void drawStartingLine(Graphics2D g2d) {
-    startingLine.draw(g2d, this);
-  }
-
-  private void drawBox(Graphics2D g2d) {
-    box.draw(g2d, this);
-  }
-
-  private void drawCars(Graphics2D g2d) {
-    cars.stream().forEach(car -> car.draw(g2d, this));
-
   }
 
   private void drawStats(Graphics2D g2d) {
