@@ -93,12 +93,6 @@ public class Track extends JPanel implements Runnable {
     g2d.drawString(car.infoString(), 40, 50);
   }
 
-  private void updateCars(final double timeDiff) {
-    car.update(timeDiff);
-    car2.update(timeDiff);
-    box.update(timeDiff);
-  }
-
   private static void applyCollision(MovingObject object1, MovingObject object2) {
     // ensure cars are disjoint
     Rectangle carBounds = object1.getBounds();
@@ -191,16 +185,16 @@ public class Track extends JPanel implements Runnable {
 
   @Override
   public void run() {
-    long now, lastTime, timeDiff, sleep;
+    long now, lastTime, sleep;
 
     lastTime = System.currentTimeMillis();
 
     while (true) {
       now = System.currentTimeMillis();
-      timeDiff = now - lastTime;
+      final long timeDiff = now - lastTime;
       lastTime = now;
       checkCollisions();
-      updateCars((float) timeDiff / 1000);
+      movingObjects.stream().forEach(obj -> obj.update((float) timeDiff / 1000));
       repaint();
       sleep = DELAY - timeDiff;
       if (sleep < 0) {
