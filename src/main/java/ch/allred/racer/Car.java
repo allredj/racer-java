@@ -1,7 +1,9 @@
 package ch.allred.racer;
 
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
+import java.awt.image.ImageObserver;
 
 public class Car extends MovingObject {
 
@@ -11,6 +13,7 @@ public class Car extends MovingObject {
   private static final double AIR_DRAG_COEFFICIENT = 0.005;
 
   private static final double TYRE_TRACTION_COEFFICIENT = 300;
+  private final static boolean DRAW_BOUNDING_BOXES = true;
 
   // px/s
   public double getIndicatedSpeed() {
@@ -50,6 +53,15 @@ public class Car extends MovingObject {
   public Car(int x, int y) {
     super(x, y);
     initCar();
+  }
+
+  @Override
+  public void draw(final Graphics2D g2d, ImageObserver imageObserver) {
+    g2d.drawImage(getImage(), getAffineTransform(), imageObserver);
+
+    if (DRAW_BOUNDING_BOXES) {
+      g2d.draw(getBounds());
+    }
   }
 
   public Car(int x, int y, int keySet) {

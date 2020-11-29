@@ -1,7 +1,9 @@
 package ch.allred.racer;
 
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.image.ImageObserver;
 import javax.swing.ImageIcon;
 
 public abstract class Sprite {
@@ -57,4 +59,5 @@ public abstract class Sprite {
     return new Rectangle((int) x, (int) y, width, height);
   }
 
+  public abstract void draw (Graphics2D g2d, ImageObserver imageObserver);
 }

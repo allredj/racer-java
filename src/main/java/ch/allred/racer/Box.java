@@ -1,5 +1,8 @@
 package ch.allred.racer;
 
+import java.awt.Graphics2D;
+import java.awt.image.ImageObserver;
+
 public class Box extends MovingObject {
 
   public static final int WIDTH = 20;
@@ -9,6 +12,11 @@ public class Box extends MovingObject {
   public Box(final int x, final int y) {
     super(x, y, WIDTH, HEIGHT);
     mass = 1;
+  }
+
+  @Override
+  public void draw(final Graphics2D g2d, final ImageObserver imageObserver) {
+    g2d.fill(getBounds());
   }
 
   protected void updateForces() {

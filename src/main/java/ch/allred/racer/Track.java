@@ -30,7 +30,6 @@ public class Track extends JPanel implements Runnable {
   private final static int boundingWallThickness = 30;
   private final static int CENTRE_WALL_THICKNESS = 300;
   private final static int CENTRE_WALL_LENGTH = 700;
-  private final static boolean DRAW_BOUNDING_BOXES = true;
 
   private final NonPhyiscalObject startingLine;
 
@@ -82,25 +81,20 @@ public class Track extends JPanel implements Runnable {
   }
 
   private void drawWalls(Graphics2D g2d) {
-    walls.stream().forEach(wall -> g2d.fill(wall.getBounds()));
+    walls.stream().forEach(wall -> wall.draw(g2d, this));
   }
 
   private void drawStartingLine(Graphics2D g2d) {
-    g2d.setColor(Color.WHITE);
-    g2d.fill(startingLine.getBounds());
-    g2d.setColor(Color.DARK_GRAY);
+    startingLine.draw(g2d, this);
   }
 
   private void drawBox(Graphics2D g2d) {
-    g2d.fill(box.getBounds());
+    box.draw(g2d, this);
   }
 
   private void drawCars(Graphics2D g2d) {
-    cars.stream().forEach(car -> g2d.drawImage(car.getImage(), car.getAffineTransform(), this));
+    cars.stream().forEach(car -> car.draw(g2d, this));
 
-    if (DRAW_BOUNDING_BOXES) {
-      cars.stream().forEach(car -> g2d.draw(car.getBounds()));
-    }
   }
 
   private void drawStats(Graphics2D g2d) {
