@@ -24,19 +24,19 @@ public class Track extends JPanel implements Runnable {
   private Car car2;
   private Box box;
   private Thread animatorThread;
-  private final Rectangle northWall;
-  private final Rectangle southWall;
-  private final Rectangle westWall;
-  private final Rectangle eastWall;
+  private final PhysicalObject northWall;
+  private final PhysicalObject southWall;
+  private final PhysicalObject westWall;
+  private final PhysicalObject eastWall;
   private final static int boundingWallThickness = 30;
   private final static boolean DRAW_BOUNDING_BOXES = true;
 
   public Track(final int width, final int height) {
     initTrack();
-    northWall = new Rectangle(0, 0, width, boundingWallThickness);
-    southWall = new Rectangle(0, height - boundingWallThickness, width, boundingWallThickness);
-    westWall = new Rectangle(0, 0, boundingWallThickness, height);
-    eastWall = new Rectangle(width - boundingWallThickness, 0, boundingWallThickness, height);
+    northWall = new PhysicalObject(0, 0, width, boundingWallThickness);
+    southWall = new PhysicalObject(0, height - boundingWallThickness, width, boundingWallThickness);
+    westWall = new PhysicalObject(0, 0, boundingWallThickness, height);
+    eastWall = new PhysicalObject(width - boundingWallThickness, 0, boundingWallThickness, height);
   }
 
   private void initTrack() {
@@ -60,10 +60,10 @@ public class Track extends JPanel implements Runnable {
 
   private void drawWalls(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
-    g2d.fill(northWall);
-    g2d.fill(southWall);
-    g2d.fill(westWall);
-    g2d.fill(eastWall);
+    g2d.fill(northWall.getBounds());
+    g2d.fill(southWall.getBounds());
+    g2d.fill(westWall.getBounds());
+    g2d.fill(eastWall.getBounds());
   }
 
   private void drawBox(Graphics g) {
@@ -149,40 +149,40 @@ public class Track extends JPanel implements Runnable {
     Rectangle carBounds = car.getBounds();
     // TODO force depends on mass and speed
     // FIXME Car should be updated between collisions to avoid multiple force application
-    if (carBounds.intersects(northWall)) {
+    if (carBounds.intersects(northWall.getBounds())) {
       car.ySpeed = WALL_ELASTICITY * Math.abs(car.ySpeed);
-      car.y = car.y + carBounds.intersection(northWall).height;
+      car.y = car.y + carBounds.intersection(northWall.getBounds()).height;
     }
-    if (carBounds.intersects(southWall)) {
+    if (carBounds.intersects(southWall.getBounds())) {
       car.ySpeed = -WALL_ELASTICITY * Math.abs(car.ySpeed);
-      car.y = car.y - carBounds.intersection(southWall).height;
+      car.y = car.y - carBounds.intersection(southWall.getBounds()).height;
     }
-    if (carBounds.intersects(westWall)) {
+    if (carBounds.intersects(westWall.getBounds())) {
       car.xSpeed = WALL_ELASTICITY * Math.abs(car.xSpeed);
-      car.x = car.x + carBounds.intersection(westWall).width;
+      car.x = car.x + carBounds.intersection(westWall.getBounds()).width;
     }
-    if (carBounds.intersects(eastWall)) {
+    if (carBounds.intersects(eastWall.getBounds())) {
       car.xSpeed = -WALL_ELASTICITY * Math.abs(car.xSpeed);
-      car.x = car.x - carBounds.intersection(eastWall).width;
+      car.x = car.x - carBounds.intersection(eastWall.getBounds()).width;
     }
     Rectangle car2Bounds = car2.getBounds();
     // TODO force depends on mass and speed
     // FIXME Car should be updated between collisions to avoid multiple force application
-    if (car2Bounds.intersects(northWall)) {
+    if (car2Bounds.intersects(northWall.getBounds())) {
       car2.ySpeed = WALL_ELASTICITY * Math.abs(car.ySpeed);
-      car2.y = car2.y + car2Bounds.intersection(northWall).height;
+      car2.y = car2.y + car2Bounds.intersection(northWall.getBounds()).height;
     }
-    if (car2Bounds.intersects(southWall)) {
+    if (car2Bounds.intersects(southWall.getBounds())) {
       car2.ySpeed = -WALL_ELASTICITY * Math.abs(car.ySpeed);
-      car2.y = car2.y - car2Bounds.intersection(southWall).height;
+      car2.y = car2.y - car2Bounds.intersection(southWall.getBounds()).height;
     }
-    if (car2Bounds.intersects(westWall)) {
+    if (car2Bounds.intersects(westWall.getBounds())) {
       car2.xSpeed = WALL_ELASTICITY * Math.abs(car.xSpeed);
-      car2.x = car2.x + car2Bounds.intersection(westWall).width;
+      car2.x = car2.x + car2Bounds.intersection(westWall.getBounds()).width;
     }
-    if (car2Bounds.intersects(eastWall)) {
+    if (car2Bounds.intersects(eastWall.getBounds())) {
       car2.xSpeed = -WALL_ELASTICITY * Math.abs(car.xSpeed);
-      car2.x = car2.x - car2Bounds.intersection(eastWall).width;
+      car2.x = car2.x - car2Bounds.intersection(eastWall.getBounds()).width;
     }
   }
 
