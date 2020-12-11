@@ -20,7 +20,7 @@ public class Track extends JPanel implements Runnable {
   private final List<Wall> walls;
 
 
-  private NonPhyiscalObject startingLine;
+  private TrackPaint startingLine;
 
   public Track() {
     cars = new ArrayList<>();
@@ -37,7 +37,7 @@ public class Track extends JPanel implements Runnable {
     movingObjects.addAll(cars);
     movingObjects.addAll(TrackData.createBoxes());
     walls.addAll(TrackData.createWalls());
-    startingLine = new NonPhyiscalObject(250, TrackData.BOUNDING_WALL_THICKNESS, 2,
+    startingLine = new TrackPaint(250, TrackData.BOUNDING_WALL_THICKNESS, 2,
         TrackData.CENTRE_WALL_Y_POSITION - TrackData.BOUNDING_WALL_THICKNESS);
   }
 

@@ -4,13 +4,13 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.ImageObserver;
 
-public class NonPhyiscalObject extends Sprite {
+public class TrackPaint extends Sprite {
 
-  public NonPhyiscalObject(final int x, final int y) {
+  public TrackPaint(final int x, final int y) {
     super(x, y);
   }
 
-  public NonPhyiscalObject(final int x, final int y, final int width, final int height) {
+  public TrackPaint(final int x, final int y, final int width, final int height) {
     super(x, y, width, height);
   }
 
