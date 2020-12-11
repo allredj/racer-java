@@ -18,14 +18,13 @@ public class Track extends JPanel implements Runnable {
   private final List<Car> cars;
   private final List<MovingObject> movingObjects;
   private final List<Wall> walls;
-
-
-  private TrackPaint startingLine;
+  private final List<TrackPaint> trackPaints;
 
   public Track() {
     cars = new ArrayList<>();
     movingObjects = new ArrayList<>();
     walls = new ArrayList<>();
+    trackPaints = new ArrayList<>();
     initTrack();
   }
 
@@ -37,8 +36,9 @@ public class Track extends JPanel implements Runnable {
     movingObjects.addAll(cars);
     movingObjects.addAll(TrackData.createBoxes());
     walls.addAll(TrackData.createWalls());
-    startingLine = new TrackPaint(250, TrackData.BOUNDING_WALL_THICKNESS, 2,
+    TrackPaint startingLine = new TrackPaint(250, TrackData.BOUNDING_WALL_THICKNESS, 2,
         TrackData.CENTRE_WALL_Y_POSITION - TrackData.BOUNDING_WALL_THICKNESS);
+    trackPaints.add(startingLine);
   }
 
   @Override
@@ -46,7 +46,7 @@ public class Track extends JPanel implements Runnable {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g;
     walls.stream().forEach(wall -> wall.draw(g2d, this));
-    startingLine.draw(g2d, this);
+    trackPaints.stream().forEach(paint -> paint.draw(g2d, this));
     movingObjects.stream().forEach(obj -> obj.draw(g2d, this));
     drawStats(g2d);
     Toolkit.getDefaultToolkit().sync();
