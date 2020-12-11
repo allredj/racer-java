@@ -16,15 +16,12 @@ public class Track extends JPanel implements Runnable {
 
   private final int IBOX_X = 300;
   private final int IBOX_Y = 300;
-  private final static int CENTRE_WALL_X_POSITION = 200;
-  private final static int CENTRE_WALL_Y_POSITION = 200;
+
   private final int DELAY = 10;
   private List<Car> cars;
   private List<MovingObject> movingObjects;
   private List<Wall> walls;
-  private final static int boundingWallThickness = 30;
-  private final static int CENTRE_WALL_THICKNESS = 300;
-  private final static int CENTRE_WALL_LENGTH = 700;
+
 
   private NonPhyiscalObject startingLine;
 
@@ -32,6 +29,7 @@ public class Track extends JPanel implements Runnable {
     // TODO: separate init from construction
     cars = new ArrayList<>();
     movingObjects = new ArrayList<>();
+    walls = new ArrayList<>();
     initTrack();
   }
 
@@ -46,23 +44,9 @@ public class Track extends JPanel implements Runnable {
     movingObjects.add(car1);
     movingObjects.add(car2);
     movingObjects.add(new Box(IBOX_X, IBOX_Y));
-    Wall northWall = new Wall(0, 0, Racer.TRACK_WIDTH, boundingWallThickness);
-    Wall southWall = new Wall(0, Racer.TRACK_HEIGHT - boundingWallThickness, Racer.TRACK_WIDTH,
-        boundingWallThickness);
-    Wall westWall = new Wall(0, 0, boundingWallThickness, Racer.TRACK_HEIGHT);
-    Wall eastWall = new Wall(Racer.TRACK_WIDTH - boundingWallThickness, 0, boundingWallThickness,
-        Racer.TRACK_HEIGHT);
-    Wall centreWall = new Wall(CENTRE_WALL_X_POSITION, CENTRE_WALL_Y_POSITION, CENTRE_WALL_LENGTH,
-        CENTRE_WALL_THICKNESS);
-    walls = new ArrayList<>();
-    walls.add(northWall);
-    walls.add(southWall);
-    walls.add(westWall);
-    walls.add(eastWall);
-    walls.add(centreWall);
-
-    startingLine = new NonPhyiscalObject(250, boundingWallThickness, 2,
-        CENTRE_WALL_Y_POSITION - boundingWallThickness);
+    walls = TrackData.walls();
+    startingLine = new NonPhyiscalObject(250, TrackData.BOUNDING_WALL_THICKNESS, 2,
+        TrackData.CENTRE_WALL_Y_POSITION - TrackData.BOUNDING_WALL_THICKNESS);
   }
 
   @Override
