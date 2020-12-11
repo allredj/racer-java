@@ -34,19 +34,13 @@ public class CollisionManager {
     double collisionXSpeed = object1.xSpeed - object2.xSpeed;
     double collisionYSpeed = object1.ySpeed - object2.ySpeed;
 
-    double object1NewXSpeed =
-        meanXSpeed - massRatioObject2 * collisionXSpeed - massRatioObject2 * xDistanceUnit * Math.abs(collisionYSpeed);
-    double object2NewXSpeed =
-        meanXSpeed + massRatioObject2 * collisionXSpeed + massRatioObject2 * xDistanceUnit * Math.abs(collisionYSpeed);
-    object1.xSpeed = object1NewXSpeed;
-    object2.xSpeed = object2NewXSpeed;
+    final double xResultant = collisionXSpeed + xDistanceUnit * Math.abs(collisionYSpeed);
+    object1.xSpeed = meanXSpeed - massRatioObject2 * xResultant;
+    object2.xSpeed = meanXSpeed + massRatioObject1 * xResultant;
 
-    double object1NewYSpeed =
-        meanYSpeed - massRatioObject2 * collisionYSpeed - massRatioObject2 * yDistanceUnit * Math.abs(collisionXSpeed);
-    double object2NewYSpeed =
-        meanYSpeed + massRatioObject1 * collisionYSpeed + massRatioObject1 * yDistanceUnit * Math.abs(collisionXSpeed);
-    object1.ySpeed = object1NewYSpeed;
-    object2.ySpeed = object2NewYSpeed;
+    final double yResultant = collisionYSpeed + yDistanceUnit * Math.abs(collisionXSpeed);
+    object1.ySpeed = meanYSpeed - massRatioObject2 * yResultant;
+    object2.ySpeed = meanYSpeed + massRatioObject1 * yResultant;
 
     deconflict(object1, object2);
   }
