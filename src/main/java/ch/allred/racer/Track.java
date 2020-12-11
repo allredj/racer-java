@@ -36,7 +36,7 @@ public class Track extends JPanel implements Runnable {
     cars.addAll(TrackData.cars());
     movingObjects.addAll(cars);
     movingObjects.addAll(TrackData.boxes());
-    walls.addAll(TrackData.walls());
+    walls.addAll(TrackData.createWalls());
     startingLine = new NonPhyiscalObject(250, TrackData.BOUNDING_WALL_THICKNESS, 2,
         TrackData.CENTRE_WALL_Y_POSITION - TrackData.BOUNDING_WALL_THICKNESS);
   }

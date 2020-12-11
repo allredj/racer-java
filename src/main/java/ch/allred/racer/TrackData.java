@@ -28,7 +28,7 @@ public class TrackData {
     return FIRST_CAR_Y + CAR_SPACING * carIndex;
   }
 
-  public static List<Wall> walls() {
+  public static List<Wall> createWalls() {
     Wall northWall = new Wall(0, 0, Racer.TRACK_WIDTH, BOUNDING_WALL_THICKNESS);
     Wall southWall = new Wall(0, Racer.TRACK_HEIGHT - BOUNDING_WALL_THICKNESS, Racer.TRACK_WIDTH,
         BOUNDING_WALL_THICKNESS);
