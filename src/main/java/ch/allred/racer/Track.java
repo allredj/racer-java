@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 
 public class Track extends JPanel implements Runnable {
 
-  private final int DELAY = 10;
+  private static final int DELAY = 10;
   private final List<Car> cars;
   private final List<MovingObject> movingObjects;
   private final List<Wall> walls;
