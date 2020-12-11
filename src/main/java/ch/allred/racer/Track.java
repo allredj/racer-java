@@ -34,6 +34,8 @@ public class Track extends JPanel implements Runnable {
     // TODO: separate init from construction
     trackWindowWidth = width;
     trackWindowHeight = height;
+    cars = new ArrayList<>();
+    movingObjects = new ArrayList<>();
     initTrack();
   }
 
@@ -41,12 +43,10 @@ public class Track extends JPanel implements Runnable {
     addKeyListener(new TAdapter());
     setBackground(Color.GRAY);
     setFocusable(true);
-    cars = new ArrayList<>();
     Car car1 = Car.fromIndex(0);
     Car car2 = Car.fromIndex(1);
     cars.add(car1);
     cars.add(car2);
-    movingObjects = new ArrayList<>();
     movingObjects.add(car1);
     movingObjects.add(car2);
     movingObjects.add(new Box(IBOX_X, IBOX_Y));
