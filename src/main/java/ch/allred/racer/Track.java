@@ -32,11 +32,11 @@ public class Track extends JPanel implements Runnable {
     addKeyListener(new TAdapter());
     setBackground(Color.GRAY);
     setFocusable(true);
+    walls.addAll(TrackData.createWalls());
+    trackPaints.addAll(TrackData.createTrackPaints());
     cars.addAll(TrackData.createCars());
     movingObjects.addAll(cars);
     movingObjects.addAll(TrackData.createBoxes());
-    walls.addAll(TrackData.createWalls());
-    trackPaints.addAll(TrackData.createTrackPaints());
   }
 
   @Override
