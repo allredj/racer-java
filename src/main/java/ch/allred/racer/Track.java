@@ -26,7 +26,7 @@ public class Track extends JPanel implements Runnable {
   private final static int CENTRE_WALL_THICKNESS = 300;
   private final static int CENTRE_WALL_LENGTH = 700;
 
-  private final NonPhyiscalObject startingLine;
+  private NonPhyiscalObject startingLine;
   private final int trackWindowWidth;
   private final int trackWindowHeight;
 
@@ -35,21 +35,6 @@ public class Track extends JPanel implements Runnable {
     trackWindowWidth = width;
     trackWindowHeight = height;
     initTrack();
-    Wall northWall = new Wall(0, 0, width, boundingWallThickness);
-    Wall southWall = new Wall(0, height - boundingWallThickness, width, boundingWallThickness);
-    Wall westWall = new Wall(0, 0, boundingWallThickness, height);
-    Wall eastWall = new Wall(width - boundingWallThickness, 0, boundingWallThickness, height);
-    Wall centreWall = new Wall(CENTRE_WALL_X_POSITION, CENTRE_WALL_Y_POSITION, CENTRE_WALL_LENGTH,
-        CENTRE_WALL_THICKNESS);
-    walls = new ArrayList<>();
-    walls.add(northWall);
-    walls.add(southWall);
-    walls.add(westWall);
-    walls.add(eastWall);
-    walls.add(centreWall);
-
-    startingLine = new NonPhyiscalObject(250, boundingWallThickness, 2,
-        CENTRE_WALL_Y_POSITION - boundingWallThickness);
   }
 
   private void initTrack() {
@@ -65,6 +50,23 @@ public class Track extends JPanel implements Runnable {
     movingObjects.add(car1);
     movingObjects.add(car2);
     movingObjects.add(new Box(IBOX_X, IBOX_Y));
+    Wall northWall = new Wall(0, 0, trackWindowWidth, boundingWallThickness);
+    Wall southWall = new Wall(0, trackWindowHeight - boundingWallThickness, trackWindowWidth,
+        boundingWallThickness);
+    Wall westWall = new Wall(0, 0, boundingWallThickness, trackWindowHeight);
+    Wall eastWall = new Wall(trackWindowWidth - boundingWallThickness, 0, boundingWallThickness,
+        trackWindowHeight);
+    Wall centreWall = new Wall(CENTRE_WALL_X_POSITION, CENTRE_WALL_Y_POSITION, CENTRE_WALL_LENGTH,
+        CENTRE_WALL_THICKNESS);
+    walls = new ArrayList<>();
+    walls.add(northWall);
+    walls.add(southWall);
+    walls.add(westWall);
+    walls.add(eastWall);
+    walls.add(centreWall);
+
+    startingLine = new NonPhyiscalObject(250, boundingWallThickness, 2,
+        CENTRE_WALL_Y_POSITION - boundingWallThickness);
   }
 
   @Override
