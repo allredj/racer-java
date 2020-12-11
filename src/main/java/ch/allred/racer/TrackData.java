@@ -39,7 +39,7 @@ public class TrackData {
     Wall centreWall = new Wall(CENTRE_WALL_X_POSITION, CENTRE_WALL_Y_POSITION, CENTRE_WALL_LENGTH,
         CENTRE_WALL_THICKNESS);
     List<Wall> walls = new ArrayList<>();
-    Collections.addAll(walls, northWall, southWall, westWall, eastWall/*, centreWall*/);
+    Collections.addAll(walls, northWall, southWall, westWall, eastWall, centreWall);
     return walls;
   }
 
