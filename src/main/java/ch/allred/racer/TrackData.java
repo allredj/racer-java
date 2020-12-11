@@ -16,6 +16,10 @@ public class TrackData {
   private static final int FIRST_CAR_Y = 50;
   private static final int CAR_SPACING = 80;
 
+  private static final int IBOX_X = 300;
+  private static final int IBOX_Y = 300;
+
+
   public static int getCarX(final int carIndex) {
     return FIRST_CAR_X;
   }
@@ -44,6 +48,12 @@ public class TrackData {
     cars.add(Car.fromIndex(0));
     cars.add(Car.fromIndex(1));
     return cars;
+  }
+
+  public static List<Box> boxes() {
+    List<Box> boxes = new ArrayList();
+    boxes.add(new Box(IBOX_X, IBOX_Y));
+    return boxes;
   }
 
 }

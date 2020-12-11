@@ -14,9 +14,6 @@ import javax.swing.JPanel;
 
 public class Track extends JPanel implements Runnable {
 
-  private final int IBOX_X = 300;
-  private final int IBOX_Y = 300;
-
   private final int DELAY = 10;
   private final List<Car> cars;
   private final List<MovingObject> movingObjects;
@@ -38,7 +35,7 @@ public class Track extends JPanel implements Runnable {
     setFocusable(true);
     cars.addAll(TrackData.cars());
     movingObjects.addAll(cars);
-    movingObjects.add(new Box(IBOX_X, IBOX_Y));
+    movingObjects.addAll(TrackData.boxes());
     walls.addAll(TrackData.walls());
     startingLine = new NonPhyiscalObject(250, TrackData.BOUNDING_WALL_THICKNESS, 2,
         TrackData.CENTRE_WALL_Y_POSITION - TrackData.BOUNDING_WALL_THICKNESS);
