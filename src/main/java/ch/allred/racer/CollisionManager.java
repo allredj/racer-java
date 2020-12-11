@@ -5,7 +5,7 @@ import java.util.List;
 
 public class CollisionManager {
 
-  private static final double WALL_ELASTICITY = 0.5;
+  private static final double COLLISION_ELASTICITY = 0.5;
 
   /**
    * Move objects apart to make sure they remain disjoint by moving the first object away.
@@ -34,11 +34,13 @@ public class CollisionManager {
     final double collisionXSpeed = object1.xSpeed - object2.xSpeed;
     final double collisionYSpeed = object1.ySpeed - object2.ySpeed;
 
-    final double xResultant = collisionXSpeed + xDistanceUnit * Math.abs(collisionYSpeed);
+    final double xResultant =
+        (collisionXSpeed + xDistanceUnit * Math.abs(collisionYSpeed)) * COLLISION_ELASTICITY;
     object1.xSpeed = meanXSpeed - massRatioObject2 * xResultant;
     object2.xSpeed = meanXSpeed + massRatioObject1 * xResultant;
 
-    final double yResultant = collisionYSpeed + yDistanceUnit * Math.abs(collisionXSpeed);
+    final double yResultant =
+        (collisionYSpeed + yDistanceUnit * Math.abs(collisionXSpeed)) * COLLISION_ELASTICITY;
     object1.ySpeed = meanYSpeed - massRatioObject2 * yResultant;
     object2.ySpeed = meanYSpeed + massRatioObject1 * yResultant;
 
@@ -52,11 +54,11 @@ public class CollisionManager {
     if (intersection.width < intersection.height) {
       // horizontal collision
       object1.x = object1.x - Math.signum(object2.x - object1.x) * intersection.width;
-      object1.xSpeed = -WALL_ELASTICITY * object1.xSpeed;
+      object1.xSpeed = -COLLISION_ELASTICITY * object1.xSpeed;
     } else {
       // vertical collision
       object1.y = object1.y - Math.signum(object2.y - object1.y) * intersection.height;
-      object1.ySpeed = -WALL_ELASTICITY * object1.ySpeed;
+      object1.ySpeed = -COLLISION_ELASTICITY * object1.ySpeed;
     }
   }
 
