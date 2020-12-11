@@ -27,9 +27,13 @@ public class Track extends JPanel implements Runnable {
   private final static int CENTRE_WALL_LENGTH = 700;
 
   private final NonPhyiscalObject startingLine;
+  private final int trackWindowWidth;
+  private final int trackWindowHeight;
 
   public Track(final int width, final int height) {
     // TODO: separate init from construction
+    trackWindowWidth = width;
+    trackWindowHeight = height;
     initTrack();
     Wall northWall = new Wall(0, 0, width, boundingWallThickness);
     Wall southWall = new Wall(0, height - boundingWallThickness, width, boundingWallThickness);
