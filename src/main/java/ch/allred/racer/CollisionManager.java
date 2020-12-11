@@ -20,7 +20,9 @@ public class CollisionManager {
   }
 
   private static void applyCollision(MovingObject object1, MovingObject object2) {
-    // assume equal weight
+    final double massRatioObject1 = object1.mass / (object1.mass + object2.mass);
+    final double massRatioObject2 = object2.mass / (object1.mass + object2.mass);
+
     final double xDistance = object2.x - object1.x;
     final double yDistance = object2.y - object1.y;
     final double distance = Math.sqrt(xDistance * xDistance + yDistance * yDistance);
@@ -33,16 +35,16 @@ public class CollisionManager {
     double collisionYSpeed = object1.ySpeed - object2.ySpeed;
 
     double object1NewXSpeed =
-        meanXSpeed - 0.5 * collisionXSpeed - 0.5 * xDistanceUnit * collisionYSpeed;
+        meanXSpeed - massRatioObject2 * collisionXSpeed - massRatioObject2 * xDistanceUnit * Math.abs(collisionYSpeed);
     double object2NewXSpeed =
-        meanXSpeed + 0.5 * collisionXSpeed + 0.5 * xDistanceUnit * collisionYSpeed;
+        meanXSpeed + massRatioObject2 * collisionXSpeed + massRatioObject2 * xDistanceUnit * Math.abs(collisionYSpeed);
     object1.xSpeed = object1NewXSpeed;
     object2.xSpeed = object2NewXSpeed;
 
     double object1NewYSpeed =
-        meanYSpeed - 0.5 * collisionYSpeed - 0.5 * yDistanceUnit * collisionXSpeed;
+        meanYSpeed - massRatioObject2 * collisionYSpeed - massRatioObject2 * yDistanceUnit * Math.abs(collisionXSpeed);
     double object2NewYSpeed =
-        meanYSpeed + 0.5 * collisionYSpeed + 0.5 * yDistanceUnit * collisionXSpeed;
+        meanYSpeed + massRatioObject1 * collisionYSpeed + massRatioObject1 * yDistanceUnit * Math.abs(collisionXSpeed);
     object1.ySpeed = object1NewYSpeed;
     object2.ySpeed = object2NewYSpeed;
 
