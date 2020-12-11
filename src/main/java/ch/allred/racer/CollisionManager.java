@@ -1,12 +1,13 @@
 package ch.allred.racer;
 
 import java.awt.Rectangle;
+import java.util.List;
 
 public class CollisionManager {
 
   private static final double WALL_ELASTICITY = 0.5;
 
-  public static void applyCollision(MovingObject object1, MovingObject object2) {
+  private static void applyCollision(MovingObject object1, MovingObject object2) {
     // ensure cars are disjoint
     Rectangle carBounds = object1.getBounds();
     Rectangle car2Bounds = object2.getBounds();
@@ -34,7 +35,7 @@ public class CollisionManager {
     object2.ySpeed = car2NewYSpeed;
   }
 
-  public static void applyCollision(MovingObject object1, Wall object2) {
+  private static void applyCollision(MovingObject object1, Wall object2) {
     // ensure cars are disjoint
     Rectangle carBounds = object1.getBounds();
     Rectangle car2Bounds = object2.getBounds();
@@ -47,6 +48,27 @@ public class CollisionManager {
       // vertical collision
       object1.y = object1.y - Math.signum(object2.y - object1.y) * intersection.height;
       object1.ySpeed = -WALL_ELASTICITY * object1.ySpeed;
+    }
+  }
+
+  public static void checkAndApplyCollisions(List<MovingObject> movingObjects, List<Wall> walls) {
+    // FIXME Too many collision checks (reflexivity)
+    for (MovingObject collider : movingObjects) {
+      for (MovingObject collidee : movingObjects) {
+        if (collider.getBounds().intersects(collidee.getBounds())) {
+          if (!collider.equals(collidee)) {
+            CollisionManager.applyCollision(collider, collidee);
+          }
+        }
+      }
+    }
+
+    for (MovingObject collider : movingObjects) {
+      for (Wall wall : walls) {
+        if (collider.getBounds().intersects(wall.getBounds())) {
+          CollisionManager.applyCollision(collider, wall);
+        }
+      }
     }
   }
 

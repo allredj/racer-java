@@ -53,25 +53,8 @@ public class Track extends JPanel implements Runnable {
     g2d.drawString(cars.get(0).infoString(), 40, 50);
   }
 
-  private void checkCollisions() {
-    // FIXME Too many collision checks (reflexivity)
-    for (MovingObject collider : movingObjects) {
-      for (MovingObject collidee : movingObjects) {
-        if (collider.getBounds().intersects(collidee.getBounds())) {
-          if (!collider.equals(collidee)) {
-            CollisionManager.applyCollision(collider, collidee);
-          }
-        }
-      }
-    }
-
-    for (MovingObject collider : movingObjects) {
-      for (Wall wall : walls) {
-        if (collider.getBounds().intersects(wall.getBounds())) {
-          CollisionManager.applyCollision(collider, wall);
-        }
-      }
-    }
+  private void updateObjects(long timeDiff) {
+    movingObjects.forEach(obj -> obj.update((float) timeDiff / 1000));
   }
 
   private class TAdapter extends KeyAdapter {
@@ -104,8 +87,8 @@ public class Track extends JPanel implements Runnable {
       now = System.currentTimeMillis();
       final long timeDiff = now - lastTime;
       lastTime = now;
-      checkCollisions();
-      movingObjects.forEach(obj -> obj.update((float) timeDiff / 1000));
+      CollisionManager.checkAndApplyCollisions(movingObjects, walls);
+      updateObjects(timeDiff);
       repaint();
       sleep = DELAY - timeDiff;
       if (sleep < 0) {
