@@ -52,7 +52,7 @@ public class Car extends MovingObject {
 
   public Car(int x, int y) {
     super(x, y);
-    initCar();
+    initCar(0);
   }
 
   @Override
@@ -66,7 +66,7 @@ public class Car extends MovingObject {
 
   public Car(int x, int y, int carIndex) {
     super(x, y);
-    initCar();
+    initCar(carIndex);
     if (carIndex == 1) {
       forwardKeyCode = KeyEvent.VK_W;
       backwardKeyCode = KeyEvent.VK_S;
@@ -79,8 +79,12 @@ public class Car extends MovingObject {
     return new Car(TrackData.getCarX(carIndex), TrackData.getCarY(carIndex), carIndex);
   }
 
-  private void initCar() {
-    loadImage("src/main/resources/car_red.png");
+  private void initCar(int carIndex) {
+    if (carIndex == 1) {
+      loadImage("src/main/resources/car_blue.png");
+    } else {
+      loadImage("src/main/resources/car_red.png");
+    }
     indicatedSpeed = 0;
     xSpeed = 0;
     ySpeed = 0;
