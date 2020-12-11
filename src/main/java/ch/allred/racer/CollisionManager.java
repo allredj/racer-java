@@ -7,16 +7,20 @@ public class CollisionManager {
 
   private static final double WALL_ELASTICITY = 0.5;
 
-  private static void applyCollision(MovingObject object1, MovingObject object2) {
-    // ensure cars are disjoint
-    Rectangle carBounds = object1.getBounds();
-    Rectangle car2Bounds = object2.getBounds();
-    Rectangle intersection = carBounds.intersection(car2Bounds);
+  /**
+   * Move objects apart to make sure they remain disjoint.
+   */
+  private static void deconflict(MovingObject object1, MovingObject object2) {
+    Rectangle intersection = object1.getBounds().intersection(object2.getBounds());
     if (intersection.width < intersection.height) {
       object1.x = object1.x - Math.signum(object2.x - object1.x) * intersection.width;
     } else {
       object1.y = object1.y - Math.signum(object2.y - object1.y) * intersection.height;
     }
+  }
+
+  private static void applyCollision(MovingObject object1, MovingObject object2) {
+    deconflict(object1, object2);
 
     // FIXME consider angle of collision, cf wall collision
     // assume equal weight
