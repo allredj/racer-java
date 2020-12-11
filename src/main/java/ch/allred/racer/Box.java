@@ -7,7 +7,7 @@ public class Box extends MovingObject {
 
   public static final int WIDTH = 20;
   public static final int HEIGHT = 20;
-  private static final double FRICTION_COEFFICIENT = 100;
+  private static final double FRICTION_COEFFICIENT = 400;
 
   public Box(final int x, final int y) {
     super(x, y, WIDTH, HEIGHT);

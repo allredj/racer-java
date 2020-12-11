@@ -29,10 +29,10 @@ public class CollisionManager {
     final double xDistanceUnit = distance == 0 ? 0 : xDistance / distance;
     final double yDistanceUnit = distance == 0 ? 0 : yDistance / distance;
 
-    double meanXSpeed = (object1.xSpeed + object2.xSpeed) / 2;
-    double meanYSpeed = (object1.ySpeed + object2.ySpeed) / 2;
-    double collisionXSpeed = object1.xSpeed - object2.xSpeed;
-    double collisionYSpeed = object1.ySpeed - object2.ySpeed;
+    final double meanXSpeed = (object1.xSpeed + object2.xSpeed) / 2;
+    final double meanYSpeed = (object1.ySpeed + object2.ySpeed) / 2;
+    final double collisionXSpeed = object1.xSpeed - object2.xSpeed;
+    final double collisionYSpeed = object1.ySpeed - object2.ySpeed;
 
     final double xResultant = collisionXSpeed + xDistanceUnit * Math.abs(collisionYSpeed);
     object1.xSpeed = meanXSpeed - massRatioObject2 * xResultant;
