@@ -20,21 +20,32 @@ public class CollisionManager {
   }
 
   private static void applyCollision(MovingObject object1, MovingObject object2) {
-    // FIXME consider angle of collision, cf wall collision
     // assume equal weight
+    final double xDistance = object2.x - object1.x;
+    final double yDistance = object2.y - object1.y;
+    final double distance = Math.sqrt(xDistance * xDistance + yDistance * yDistance);
+    final double xDistanceUnit = distance == 0 ? 0 : xDistance / distance;
+    final double yDistanceUnit = distance == 0 ? 0 : yDistance / distance;
+
     double meanXSpeed = (object1.xSpeed + object2.xSpeed) / 2;
+    double meanYSpeed = (object1.ySpeed + object2.ySpeed) / 2;
     double collisionXSpeed = object1.xSpeed - object2.xSpeed;
-    double object1NewXSpeed = meanXSpeed - 0.5 * collisionXSpeed;
-    double object2NewXSpeed = meanXSpeed + 0.5 * collisionXSpeed;
+    double collisionYSpeed = object1.ySpeed - object2.ySpeed;
+
+    double object1NewXSpeed =
+        meanXSpeed - 0.5 * collisionXSpeed - 0.5 * xDistanceUnit * collisionYSpeed;
+    double object2NewXSpeed =
+        meanXSpeed + 0.5 * collisionXSpeed + 0.5 * xDistanceUnit * collisionYSpeed;
     object1.xSpeed = object1NewXSpeed;
     object2.xSpeed = object2NewXSpeed;
 
-    double meanYSpeed = (object1.ySpeed + object2.ySpeed) / 2;
-    double collisionYSpeed = object1.ySpeed - object2.ySpeed;
-    double object1NewYSpeed = meanYSpeed - 0.5 * collisionYSpeed;
-    double object2NewYSpeed = meanYSpeed + 0.5 * collisionYSpeed;
+    double object1NewYSpeed =
+        meanYSpeed - 0.5 * collisionYSpeed - 0.5 * yDistanceUnit * collisionXSpeed;
+    double object2NewYSpeed =
+        meanYSpeed + 0.5 * collisionYSpeed + 0.5 * yDistanceUnit * collisionXSpeed;
     object1.ySpeed = object1NewYSpeed;
     object2.ySpeed = object2NewYSpeed;
+
     deconflict(object1, object2);
   }
 
