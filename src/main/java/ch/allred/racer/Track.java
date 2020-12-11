@@ -37,12 +37,9 @@ public class Track extends JPanel implements Runnable {
     addKeyListener(new TAdapter());
     setBackground(Color.GRAY);
     setFocusable(true);
-    Car car1 = Car.fromIndex(0);
-    Car car2 = Car.fromIndex(1);
-    cars.add(car1);
-    cars.add(car2);
-    movingObjects.add(car1);
-    movingObjects.add(car2);
+    cars.add(Car.fromIndex(0));
+    cars.add(Car.fromIndex(1));
+    movingObjects.addAll(cars);
     movingObjects.add(new Box(IBOX_X, IBOX_Y));
     walls = TrackData.walls();
     startingLine = new NonPhyiscalObject(250, TrackData.BOUNDING_WALL_THICKNESS, 2,
