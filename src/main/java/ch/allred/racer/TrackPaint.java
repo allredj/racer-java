@@ -6,10 +6,6 @@ import java.awt.image.ImageObserver;
 
 public class TrackPaint extends Sprite {
 
-  public TrackPaint(final int x, final int y) {
-    super(x, y);
-  }
-
   public TrackPaint(final int x, final int y, final int width, final int height) {
     super(x, y, width, height);
   }
