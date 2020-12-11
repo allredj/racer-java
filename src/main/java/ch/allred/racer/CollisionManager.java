@@ -8,7 +8,7 @@ public class CollisionManager {
   private static final double WALL_ELASTICITY = 0.5;
 
   /**
-   * Move objects apart to make sure they remain disjoint.
+   * Move objects apart to make sure they remain disjoint by moving the first object away.
    */
   private static void deconflict(MovingObject object1, MovingObject object2) {
     Rectangle intersection = object1.getBounds().intersection(object2.getBounds());
@@ -40,7 +40,6 @@ public class CollisionManager {
   }
 
   private static void applyCollision(MovingObject object1, Wall object2) {
-    // ensure cars are disjoint
     Rectangle carBounds = object1.getBounds();
     Rectangle car2Bounds = object2.getBounds();
     Rectangle intersection = carBounds.intersection(car2Bounds);
