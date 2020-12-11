@@ -39,4 +39,11 @@ public class TrackData {
     return walls;
   }
 
+  public static List<Car> cars() {
+    List<Car> cars = new ArrayList<>();
+    cars.add(Car.fromIndex(0));
+    cars.add(Car.fromIndex(1));
+    return cars;
+  }
+
 }
