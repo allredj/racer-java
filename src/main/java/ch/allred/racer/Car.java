@@ -86,7 +86,7 @@ public class Car extends MovingObject {
     ySpeed = 0;
     xForce = 0;
     yForce = 0;
-    mass = 1;
+    mass = 4;
     xHeading = 1;
     yHeading = 0;
   }
