@@ -26,17 +26,17 @@ public class CollisionManager {
     // assume equal weight
     double meanXSpeed = (object1.xSpeed + object2.xSpeed) / 2;
     double collisionXSpeed = object1.xSpeed - object2.xSpeed;
-    double carNewXSpeed = meanXSpeed - 0.3 * collisionXSpeed;
-    double car2NewXSpeed = meanXSpeed + 0.3 * collisionXSpeed;
-    object1.xSpeed = carNewXSpeed;
-    object2.xSpeed = car2NewXSpeed;
+    double object1NewXSpeed = meanXSpeed - 0.5 * collisionXSpeed;
+    double object2NewXSpeed = meanXSpeed + 0.5 * collisionXSpeed;
+    object1.xSpeed = object1NewXSpeed;
+    object2.xSpeed = object2NewXSpeed;
 
     double meanYSpeed = (object1.ySpeed + object2.ySpeed) / 2;
     double collisionYSpeed = object1.ySpeed - object2.ySpeed;
-    double carNewYSpeed = meanYSpeed - 0.3 * collisionYSpeed;
-    double car2NewYSpeed = meanYSpeed + 0.3 * collisionYSpeed;
-    object1.ySpeed = carNewYSpeed;
-    object2.ySpeed = car2NewYSpeed;
+    double object1NewYSpeed = meanYSpeed - 0.5 * collisionYSpeed;
+    double object2NewYSpeed = meanYSpeed + 0.5 * collisionYSpeed;
+    object1.ySpeed = object1NewYSpeed;
+    object2.ySpeed = object2NewYSpeed;
   }
 
   private static void applyCollision(MovingObject object1, Wall object2) {
