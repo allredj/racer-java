@@ -20,8 +20,6 @@ public class CollisionManager {
   }
 
   private static void applyCollision(MovingObject object1, MovingObject object2) {
-    deconflict(object1, object2);
-
     // FIXME consider angle of collision, cf wall collision
     // assume equal weight
     double meanXSpeed = (object1.xSpeed + object2.xSpeed) / 2;
@@ -37,6 +35,7 @@ public class CollisionManager {
     double object2NewYSpeed = meanYSpeed + 0.5 * collisionYSpeed;
     object1.ySpeed = object1NewYSpeed;
     object2.ySpeed = object2NewYSpeed;
+    deconflict(object1, object2);
   }
 
   private static void applyCollision(MovingObject object1, Wall object2) {
