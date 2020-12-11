@@ -10,9 +10,9 @@ public class Car extends MovingObject {
   // rad/s
   private static final double TURN_RATE = 4;
 
-  private static final double AIR_DRAG_COEFFICIENT = 0.005;
+  private static final double AIR_DRAG_COEFFICIENT = 0.01;
 
-  private static final double TYRE_TRACTION_COEFFICIENT = 300;
+  private static final double TYRE_TRACTION_COEFFICIENT = 800;
   private final static boolean DRAW_BOUNDING_BOXES = true;
 
   // px/s
