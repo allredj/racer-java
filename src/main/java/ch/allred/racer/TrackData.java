@@ -50,7 +50,7 @@ public class TrackData {
     return cars;
   }
 
-  public static List<Box> boxes() {
+  public static List<Box> createBoxes() {
     List<Box> boxes = new ArrayList();
     boxes.add(new Box(IBOX_X, IBOX_Y));
     return boxes;
