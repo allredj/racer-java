@@ -6,11 +6,11 @@ import java.util.List;
 
 public class TrackData {
 
-  public final static int BOUNDING_WALL_THICKNESS = 30;
+  private final static int BOUNDING_WALL_THICKNESS = 30;
   private final static int CENTRE_WALL_THICKNESS = 300;
   private final static int CENTRE_WALL_LENGTH = 700;
   private final static int CENTRE_WALL_X_POSITION = 200;
-  public final static int CENTRE_WALL_Y_POSITION = 200;
+  private final static int CENTRE_WALL_Y_POSITION = 200;
 
   private static final int FIRST_CAR_X = 200;
   private static final int FIRST_CAR_Y = 50;
@@ -51,9 +51,16 @@ public class TrackData {
   }
 
   public static List<Box> createBoxes() {
-    List<Box> boxes = new ArrayList();
+    List<Box> boxes = new ArrayList<>();
     boxes.add(new Box(IBOX_X, IBOX_Y));
     return boxes;
+  }
+
+  public static List<TrackPaint> createTrackPaints() {
+    List<TrackPaint> paints = new ArrayList<>();
+    paints.add(new TrackPaint(250, TrackData.BOUNDING_WALL_THICKNESS, 2,
+        TrackData.CENTRE_WALL_Y_POSITION - TrackData.BOUNDING_WALL_THICKNESS));
+    return paints;
   }
 
 }
