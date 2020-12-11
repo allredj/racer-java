@@ -79,18 +79,16 @@ public class Track extends JPanel implements Runnable {
 
   @Override
   public void run() {
-    long now, lastTime, sleep;
-
-    lastTime = System.currentTimeMillis();
+    long lastTime = System.currentTimeMillis();
 
     while (true) {
-      now = System.currentTimeMillis();
+      final long now = System.currentTimeMillis();
       final long timeDiff = now - lastTime;
       lastTime = now;
       CollisionManager.checkAndApplyCollisions(movingObjects, walls);
       updateObjects(timeDiff);
       repaint();
-      sleep = DELAY - timeDiff;
+      long sleep = DELAY - timeDiff;
       if (sleep < 0) {
         sleep = 2;
       }
