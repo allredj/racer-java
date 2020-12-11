@@ -84,12 +84,6 @@ public class CarDiffblueTest {
   }
 
   @Test
-  public void testVectorLength() {
-    // Arrange, Act and Assert
-    assertEquals(14.142135623730951, Car.vectorLength(10.0, 10.0));
-  }
-
-  @Test
   public void testSignedAngleBetweenVectors() {
     // Arrange, Act and Assert
     assertEquals(0.0, Car.signedAngleBetweenVectors(10.0, 10.0, 10.0, 10.0));
