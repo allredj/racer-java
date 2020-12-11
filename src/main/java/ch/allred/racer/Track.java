@@ -26,7 +26,6 @@ public class Track extends JPanel implements Runnable {
   private NonPhyiscalObject startingLine;
 
   public Track() {
-    // TODO: separate init from construction
     cars = new ArrayList<>();
     movingObjects = new ArrayList<>();
     walls = new ArrayList<>();
