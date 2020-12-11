@@ -18,9 +18,9 @@ public class Track extends JPanel implements Runnable {
   private final int IBOX_Y = 300;
 
   private final int DELAY = 10;
-  private List<Car> cars;
-  private List<MovingObject> movingObjects;
-  private List<Wall> walls;
+  private final List<Car> cars;
+  private final List<MovingObject> movingObjects;
+  private final List<Wall> walls;
 
 
   private NonPhyiscalObject startingLine;
@@ -37,10 +37,10 @@ public class Track extends JPanel implements Runnable {
     addKeyListener(new TAdapter());
     setBackground(Color.GRAY);
     setFocusable(true);
-    cars = TrackData.cars();
+    cars.addAll(TrackData.cars());
     movingObjects.addAll(cars);
     movingObjects.add(new Box(IBOX_X, IBOX_Y));
-    walls = TrackData.walls();
+    walls.addAll(TrackData.walls());
     startingLine = new NonPhyiscalObject(250, TrackData.BOUNDING_WALL_THICKNESS, 2,
         TrackData.CENTRE_WALL_Y_POSITION - TrackData.BOUNDING_WALL_THICKNESS);
   }
