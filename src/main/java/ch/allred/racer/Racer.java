@@ -5,12 +5,12 @@ import javax.swing.JFrame;
 
 public class Racer extends JFrame {
 
-  private final static int TRACK_WIDTH = 1100;
-  private final static int TRACK_HEIGHT = 700;
+  public final static int TRACK_WIDTH = 1100;
+  public final static int TRACK_HEIGHT = 700;
   private final static int BOTTOM_MARGIN = 28;
 
   private void initUI() {
-    add(new Track(TRACK_WIDTH, TRACK_HEIGHT));
+    add(new Track());
     setTitle("Racer");
     setSize(TRACK_WIDTH, TRACK_HEIGHT + BOTTOM_MARGIN);
     setLocationRelativeTo(null);

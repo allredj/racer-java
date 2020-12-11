@@ -27,13 +27,9 @@ public class Track extends JPanel implements Runnable {
   private final static int CENTRE_WALL_LENGTH = 700;
 
   private NonPhyiscalObject startingLine;
-  private final int trackWindowWidth;
-  private final int trackWindowHeight;
 
-  public Track(final int width, final int height) {
+  public Track() {
     // TODO: separate init from construction
-    trackWindowWidth = width;
-    trackWindowHeight = height;
     cars = new ArrayList<>();
     movingObjects = new ArrayList<>();
     initTrack();
@@ -50,12 +46,12 @@ public class Track extends JPanel implements Runnable {
     movingObjects.add(car1);
     movingObjects.add(car2);
     movingObjects.add(new Box(IBOX_X, IBOX_Y));
-    Wall northWall = new Wall(0, 0, trackWindowWidth, boundingWallThickness);
-    Wall southWall = new Wall(0, trackWindowHeight - boundingWallThickness, trackWindowWidth,
+    Wall northWall = new Wall(0, 0, Racer.TRACK_WIDTH, boundingWallThickness);
+    Wall southWall = new Wall(0, Racer.TRACK_HEIGHT - boundingWallThickness, Racer.TRACK_WIDTH,
         boundingWallThickness);
-    Wall westWall = new Wall(0, 0, boundingWallThickness, trackWindowHeight);
-    Wall eastWall = new Wall(trackWindowWidth - boundingWallThickness, 0, boundingWallThickness,
-        trackWindowHeight);
+    Wall westWall = new Wall(0, 0, boundingWallThickness, Racer.TRACK_HEIGHT);
+    Wall eastWall = new Wall(Racer.TRACK_WIDTH - boundingWallThickness, 0, boundingWallThickness,
+        Racer.TRACK_HEIGHT);
     Wall centreWall = new Wall(CENTRE_WALL_X_POSITION, CENTRE_WALL_Y_POSITION, CENTRE_WALL_LENGTH,
         CENTRE_WALL_THICKNESS);
     walls = new ArrayList<>();
