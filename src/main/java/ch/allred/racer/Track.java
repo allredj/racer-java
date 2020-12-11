@@ -43,9 +43,9 @@ public class Track extends JPanel implements Runnable {
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g;
-    walls.stream().forEach(wall -> wall.draw(g2d, this));
-    trackPaints.stream().forEach(paint -> paint.draw(g2d, this));
-    movingObjects.stream().forEach(obj -> obj.draw(g2d, this));
+    walls.forEach(wall -> wall.draw(g2d, this));
+    trackPaints.forEach(paint -> paint.draw(g2d, this));
+    movingObjects.forEach(obj -> obj.draw(g2d, this));
     drawStats(g2d);
     Toolkit.getDefaultToolkit().sync();
   }
@@ -126,12 +126,12 @@ public class Track extends JPanel implements Runnable {
 
     @Override
     public void keyReleased(KeyEvent e) {
-      cars.stream().forEach(car -> car.keyReleased(e));
+      cars.forEach(car -> car.keyReleased(e));
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-      cars.stream().forEach(car -> car.keyPressed(e));
+      cars.forEach(car -> car.keyPressed(e));
     }
   }
 
@@ -153,7 +153,7 @@ public class Track extends JPanel implements Runnable {
       final long timeDiff = now - lastTime;
       lastTime = now;
       checkCollisions();
-      movingObjects.stream().forEach(obj -> obj.update((float) timeDiff / 1000));
+      movingObjects.forEach(obj -> obj.update((float) timeDiff / 1000));
       repaint();
       sleep = DELAY - timeDiff;
       if (sleep < 0) {
