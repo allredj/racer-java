@@ -151,11 +151,6 @@ public class Car extends MovingObject {
     }
   }
 
-  static double dot(double u1, double u2, double v1, double v2) {
-    return u1 * v1 + u2 * v2;
-  }
-
-
   static double signedAngleBetweenVectors(double u1, double u2, double v1, double v2) {
     return Math.atan2(u2, u1) - Math.atan2(v2, v1);
   }
